@@ -1,4 +1,30 @@
+Vercel Deployment: https://mikes-watchlist-spa.vercel.app/
+
+## Project: Movie Explorer
+
+This project will create a movie exploration application that allows users to search for movies, view details, and create a watchlist. We'll use the OMDb API (Open Movie Database), which is free and easy to use.
+
 # React + TypeScript + Vite
+
+# API: OMDb API (Free tier with API key)
+
+The OMDb API provides movie information and is simple to integrate. It offers a free tier with sufficient requests for a side project.
+Link: https://www.omdbapi.com/
+
+## Dan's Reccomendations
+
+1. Keep as SPA, thats why we are using Vite
+2. No using server! That's why we are moving away from Nextjs
+3. Decide whether to build your own components or use a framework
+4. Priority is just hitting the API and rendering the movies cards
+   a. loading state,
+   b. error state,
+   c. api key (.env),
+   d. pagination
+
+---
+
+---
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
