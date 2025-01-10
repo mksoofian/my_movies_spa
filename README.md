@@ -12,6 +12,9 @@ The OMDb API provides movie information and is simple to integrate. It offers a 
 Link: https://www.omdbapi.com/
 Link2: https://developer.themoviedb.org/
 
+- Watch Providers: Netflix, Amazon Video, Amazon Prime Video, Peacock, Max
+- Watch Region: United States
+
 ## Dan's Reccomendations
 
 1. Keep as SPA, thats why we are using Vite
