@@ -40,3 +40,9 @@
 .read-the-docs {
   color: #888;
 }
+
+/* ----------- */
+.pagination {
+  display: flex;
+  gap: 2rem;
+}

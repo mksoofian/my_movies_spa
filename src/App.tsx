@@ -7,8 +7,10 @@ function App() {
   const [topRateMovies, setTopRatedMovies] = useState<
     TopRatedMovies | undefined
   >(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     const options = {
       method: "GET",
       headers: {
@@ -28,12 +30,36 @@ function App() {
       .then((data) => {
         setTopRatedMovies(data);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setIsLoading(false);
+        console.error(err);
+      });
+
+    setIsLoading(false);
   }, [pageNum]);
+
+  const handleClickPrevPage = () => {
+    if (pageNum > 1) setPageNum(pageNum - 1);
+  };
+
+  const handleClickNextPage = () => {
+    if (topRateMovies) {
+      if (pageNum < topRateMovies?.total_pages) {
+        setPageNum(pageNum + 1);
+      }
+    }
+  };
+
+  if (isLoading) return <p>Page is loading data...</p>;
 
   return (
     <>
-      <p>Page: {topRateMovies?.page}</p>
+      <div className="pagination">
+        <button onClick={handleClickPrevPage}>prev</button>
+        <p>Page: {topRateMovies?.page}</p>
+        <button onClick={handleClickNextPage}>next</button>
+      </div>
+
       {topRateMovies?.results.map((movie) => {
         return <p key={movie.id}>{movie.original_title}</p>;
       })}
