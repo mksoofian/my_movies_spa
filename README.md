@@ -6,16 +6,17 @@ This project will create a movie exploration application that allows users to se
 
 # React + TypeScript + Vite
 
-# API: OMDb API (Free tier with API key)
+# API: OMDb API (Free tier with API key) or TheMovieDb API
 
 The OMDb API provides movie information and is simple to integrate. It offers a free tier with sufficient requests for a side project.
 Link: https://www.omdbapi.com/
+Link2: https://developer.themoviedb.org/
 
 ## Dan's Reccomendations
 
 1. Keep as SPA, thats why we are using Vite
 2. No using server! That's why we are moving away from Nextjs
-3. Decide whether to build your own components or use a framework
+3. Decide whether to build your own components or use a framework // Mike: Gonna build my own!!!
 4. Priority is just hitting the API and rendering the movies cards
    a. loading state,
    b. error state,
