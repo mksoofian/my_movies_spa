@@ -44,5 +44,16 @@
 /* ----------- */
 .pagination {
   display: flex;
+  justify-content: center;
   gap: 2rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 2rem;
+}
+
+.grid-item {
+  border: 1px grey solid;
+  border-radius: 1rem;
 }
