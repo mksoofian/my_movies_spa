@@ -54,15 +54,26 @@ function App() {
 
   return (
     <>
-      <div className="pagination">
-        <button onClick={handleClickPrevPage}>prev</button>
-        <p>Page: {topRateMovies?.page}</p>
-        <button onClick={handleClickNextPage}>next</button>
-      </div>
+      <section>
+        <h2> Top-Rated Movies</h2>
+        <div className="grid">
+          {topRateMovies?.results.map((movie) => {
+            return (
+              <div key={movie.id} className="grid-item">
+                <h4>{movie.original_title}</h4>
+                <p>Popularity Score:{movie.popularity}</p>
+                <p>Vote Average: {movie.vote_average}/10</p>
+              </div>
+            );
+          })}
+        </div>
 
-      {topRateMovies?.results.map((movie) => {
-        return <p key={movie.id}>{movie.original_title}</p>;
-      })}
+        <div className="pagination">
+          <button onClick={handleClickPrevPage}>prev</button>
+          <p>Page: {topRateMovies?.page}</p>
+          <button onClick={handleClickNextPage}>next</button>
+        </div>
+      </section>
     </>
   );
 }
