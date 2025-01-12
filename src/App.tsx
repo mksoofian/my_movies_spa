@@ -20,7 +20,7 @@ function App() {
       },
     };
     fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageNum}`,
+      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageNum}&region=US`,
       options
     )
       .then((res) => {
@@ -60,9 +60,21 @@ function App() {
           {topRateMovies?.results.map((movie) => {
             return (
               <div key={movie.id} className="grid-item">
-                <h4>{movie.original_title}</h4>
-                <p>Popularity Score:{movie.popularity}</p>
-                <p>Vote Average: {movie.vote_average}/10</p>
+                {/* flex wrapper */}
+                <div className="card-wrapper">
+                  <div>
+                    <img
+                      className="poster"
+                      src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${movie.poster_path}`}
+                    />
+                  </div>
+                  <div>
+                    <h4>{movie.original_title}</h4>
+                    {/* <p>Popularity Score:{movie.popularity}</p> */}
+                    <p>Score: {Math.floor(movie.vote_average * 10)}%</p>
+                    <p>{movie.original_language}</p>
+                  </div>
+                </div>
               </div>
             );
           })}

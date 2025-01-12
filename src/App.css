@@ -57,3 +57,12 @@
   border: 1px grey solid;
   border-radius: 1rem;
 }
+
+.card-wrapper {
+  display: flex;
+  max-height: 20rem;
+}
+
+.poster {
+  object-fit: contain;
+}
