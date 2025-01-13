@@ -1,11 +1,17 @@
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /* margin: 0 auto; */
+  /* padding: 2rem; */
+  /* text-align: center; */
 }
 
-.logo {
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -39,7 +45,7 @@
 
 .read-the-docs {
   color: #888;
-}
+} */
 
 /* ----------- */
 .pagination {
@@ -47,22 +53,58 @@
   justify-content: center;
   gap: 2rem;
 }
+
+.section_centered {
+  text-align: center;
+}
+
 .grid {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 260px 15rem 15rem 15rem;
   gap: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1280px;
 }
 
 .grid-item {
   border: 1px grey solid;
-  border-radius: 1rem;
+  /* border-radius: 1rem; */
 }
 
-.card-wrapper {
-  display: flex;
-  max-height: 20rem;
+.wrapper {
+  width: 100%;
+  height: 100%;
+  /* position: relative;
+  top: 0;
+  left: 0; */
+}
+
+.image {
+  /* display: inline-block;
+  width: 100%;
+  height: 100%; */
 }
 
 .poster {
-  object-fit: contain;
+  /* display: inline-block;
+  width: 100%;
+  height: 100%; */
+  aspect-ratio: 1/1.5;
+  width: 100%;
+  object-fit: cover;
 }
+
+/* .card-wrapper {
+  display: flex;
+  flex-direction: column;
+} */
+
+/* .image-wrapper {
+  max-height: 80%;
+} */
+
+/* .poster {
+  width: 100%;
+  height: 15rem;
+  object-fit: contain;
+} */

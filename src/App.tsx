@@ -54,26 +54,28 @@ function App() {
 
   return (
     <>
-      <section>
+      <section className="section_centered">
         <h2> Top-Rated Movies</h2>
         <div className="grid">
           {topRateMovies?.results.map((movie) => {
             return (
               <div key={movie.id} className="grid-item">
                 {/* flex wrapper */}
-                <div className="card-wrapper">
-                  <div>
+                <div className="image">
+                  <div className="wrapper">
+                    {/* <a href={movie.backdrop_path} className="image"> */}
                     <img
                       className="poster"
                       src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${movie.poster_path}`}
                     />
+                    {/* </a> */}
                   </div>
-                  <div>
-                    <h4>{movie.original_title}</h4>
-                    {/* <p>Popularity Score:{movie.popularity}</p> */}
-                    <p>Score: {Math.floor(movie.vote_average * 10)}%</p>
-                    <p>{movie.original_language}</p>
-                  </div>
+                </div>
+                <div className="content">
+                  <h4>{movie.original_title}</h4>
+                  {/* <p>Popularity Score:{movie.popularity}</p> */}
+                  <p>Score: {Math.floor(movie.vote_average * 10)}%</p>
+                  <p>{movie.original_language}</p>
                 </div>
               </div>
             );
