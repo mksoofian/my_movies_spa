@@ -8,6 +8,7 @@ function App() {
     TopRatedMovies | undefined
   >(undefined);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -15,8 +16,9 @@ function App() {
       method: "GET",
       headers: {
         accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiN2M5M2U2YTgyN2FjYmYwYmEwM2E2NDVjNGRkMTdhZCIsIm5iZiI6MTczNjQ4MjMwOS43NjEsInN1YiI6IjY3ODA5ZTA1NDRkNjQ5ZmZhZTdiNjQ2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.hgqBDYj8uKvadBciVh-y5juP19DkSSdIBgmMiMh3GA0",
+        Authorization: `Bearer ${
+          import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN
+        }`,
       },
     };
     fetch(
@@ -31,11 +33,12 @@ function App() {
         setTopRatedMovies(data);
       })
       .catch((err) => {
-        setIsLoading(false);
+        setError(err);
         console.error(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-
-    setIsLoading(false);
   }, [pageNum]);
 
   const handleClickPrevPage = () => {
@@ -51,6 +54,7 @@ function App() {
   };
 
   if (isLoading) return <p>Page is loading data...</p>;
+  if (error) return <p>An error occurured: {error}</p>;
 
   return (
     <>
