@@ -1,67 +1,56 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { TopRatedMovies } from "./types/movie_types";
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
   const [pageNum, setPageNum] = useState(1);
-  const [topRateMovies, setTopRatedMovies] = useState<
-    TopRatedMovies | undefined
-  >(undefined);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${
-          import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN
-        }`,
-      },
-    };
-    fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageNum}&region=US`,
-      options
-    )
-      .then((res) => {
-        const data = res.json();
-        return data;
-      })
-      .then((data) => {
-        setTopRatedMovies(data);
-      })
-      .catch((err) => {
-        setError(err);
-        console.error(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [pageNum]);
+  const {
+    isPending,
+    error,
+    data: topRatedMovies,
+  } = useQuery({
+    queryKey: ["fetchTopRated", pageNum],
+    queryFn: async (): Promise<TopRatedMovies> => {
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${
+            import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN
+          }`,
+        },
+      };
+      const response = await fetch(
+        `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageNum}&region=US`,
+        options
+      );
+      const data = await response.json();
+      return data;
+    },
+  });
 
   const handleClickPrevPage = () => {
     if (pageNum > 1) setPageNum(pageNum - 1);
   };
 
   const handleClickNextPage = () => {
-    if (topRateMovies) {
-      if (pageNum < topRateMovies?.total_pages) {
+    if (topRatedMovies) {
+      if (pageNum < topRatedMovies?.total_pages) {
         setPageNum(pageNum + 1);
       }
     }
   };
 
-  if (isLoading) return <p>Page is loading data...</p>;
-  if (error) return <p>An error occurured: {error}</p>;
+  if (isPending) return <p>Page is loading data...</p>;
+  if (error) return <p>An error occured: {error.message}</p>;
 
   return (
     <>
       <section className="section_centered">
         <h2> Top-Rated Movies</h2>
         <div className="grid">
-          {topRateMovies?.results.map((movie) => {
+          {topRatedMovies.results.map((movie) => {
             return (
               <div key={movie.id} className="grid-item">
                 {/* flex wrapper */}
@@ -88,7 +77,7 @@ function App() {
 
         <div className="pagination">
           <button onClick={handleClickPrevPage}>prev</button>
-          <p>Page: {topRateMovies?.page}</p>
+          <p>Page: {topRatedMovies.page}</p>
           <button onClick={handleClickNextPage}>next</button>
         </div>
       </section>
