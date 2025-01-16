@@ -48,12 +48,18 @@ function App() {
   return (
     <main>
       <section className="section_centered">
-        <h2> Top-Rated Movies</h2>
+        <div className="header-nav">
+          <h2> Top-Rated Movies</h2>
+          <div className="pagination">
+            <button onClick={handleClickPrevPage}>prev</button>
+            <p>Page: {topRatedMovies.page}</p>
+            <button onClick={handleClickNextPage}>next</button>
+          </div>
+        </div>
         <div className="grid">
           {topRatedMovies.results.map((movie) => {
             return (
               <div key={movie.id} className="grid-item">
-                {/* flex wrapper */}
                 <div className="image">
                   <div className="wrapper">
                     {/* <a href={movie.backdrop_path} className="image"> */}
@@ -74,13 +80,12 @@ function App() {
             );
           })}
         </div>
-
-        <div className="pagination">
-          <button onClick={handleClickPrevPage}>prev</button>
-          <p>Page: {topRatedMovies.page}</p>
-          <button onClick={handleClickNextPage}>next</button>
-        </div>
       </section>
+      <div className="pagination">
+        <button onClick={handleClickPrevPage}>prev</button>
+        <p>Page: {topRatedMovies.page}</p>
+        <button onClick={handleClickNextPage}>next</button>
+      </div>
     </main>
   );
 }
