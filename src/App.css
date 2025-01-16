@@ -48,27 +48,30 @@ picture {
 } */
 
 /* ----------- */
+
+main {
+  width: 80vw;
+  padding: 1rem;
+}
+
 .pagination {
   display: flex;
   justify-content: center;
   gap: 2rem;
 }
-
 .section_centered {
   text-align: center;
 }
-
 .grid {
   display: grid;
-  grid-template-columns: 260px 15rem 15rem 15rem;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   gap: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 1280px;
 }
 
 .grid-item {
   border: 1px grey solid;
   /* border-radius: 1rem; */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .wrapper {

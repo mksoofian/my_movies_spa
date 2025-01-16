@@ -46,7 +46,7 @@ function App() {
   if (error) return <p>An error occured: {error.message}</p>;
 
   return (
-    <>
+    <main>
       <section className="section_centered">
         <h2> Top-Rated Movies</h2>
         <div className="grid">
@@ -81,7 +81,7 @@ function App() {
           <button onClick={handleClickNextPage}>next</button>
         </div>
       </section>
-    </>
+    </main>
   );
 }
 
