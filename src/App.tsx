@@ -42,6 +42,7 @@ function App() {
     }
   };
 
+  //   .tolocaldatestring subtracts a day... need to fix -- use datefns?
   const dateFormatter = (date: string) => {
     // format of date param "1957-04-10", YYYY-MM-DD
     // to format "Apr 10, 1957"
