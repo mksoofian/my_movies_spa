@@ -42,6 +42,15 @@ function App() {
     }
   };
 
+  const dateFormatter = (date: string) => {
+    // format of date param "1957-04-10", YYYY-MM-DD
+    // to format "Apr 10, 1957"
+    return new Date(date).toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
   if (isPending) return <p>Page is loading data...</p>;
   if (error) return <p>An error occured: {error.message}</p>;
 
@@ -74,7 +83,7 @@ function App() {
                   <h4>{movie.original_title}</h4>
                   {/* <p>Popularity Score:{movie.popularity}</p> */}
                   <p>Score: {Math.floor(movie.vote_average * 10)}%</p>
-                  <p>{movie.original_language}</p>
+                  <p>{dateFormatter(movie.release_date)}</p>
                 </div>
               </div>
             );
