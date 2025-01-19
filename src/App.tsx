@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { TopRatedMovies } from "./types/movie_types";
 import { useQuery } from "@tanstack/react-query";
+import { dateFormatter } from "./utils/date-formatter";
 
 function App() {
   const [pageNum, setPageNum] = useState(1);
@@ -42,16 +43,6 @@ function App() {
     }
   };
 
-  //   .tolocaldatestring subtracts a day... need to fix -- use datefns?
-  const dateFormatter = (date: string) => {
-    // format of date param "1957-04-10", YYYY-MM-DD
-    // to format "Apr 10, 1957"
-    return new Date(date).toLocaleDateString("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    });
-  };
   if (isPending) return <p>Page is loading data...</p>;
   if (error) return <p>An error occured: {error.message}</p>;
 
