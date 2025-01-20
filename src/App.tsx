@@ -72,7 +72,9 @@ function App() {
                   </div>
                 </div>
                 <div className="card-content">
-                  {/* <p>Score: {Math.floor(movie.vote_average * 10)}%</p> */}
+                  <div className="voter-score">
+                    <p> {Math.floor(movie.vote_average * 10)}</p> <span>%</span>
+                  </div>
                   <h4 className="movie-title">{movie.original_title}</h4>
                   {/* <p>Popularity Score:{movie.popularity}</p> */}
                   <p className="movie-release-date">

@@ -68,8 +68,27 @@ main {
   position: relative;
   white-space: normal;
   display: flex;
-  align-content: flex-start;
+  flex-direction: column;
   flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.voter-score {
+  height: 2.5rem;
+  width: 2.5rem;
+  color: white;
+  background-color: black;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: small;
+  border: 1px solid white;
+}
+
+.voter-score > span {
+  font-size: 0.35rem;
 }
 
 .movie-title {
