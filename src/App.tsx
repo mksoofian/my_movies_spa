@@ -61,7 +61,7 @@ function App() {
           {topRatedMovies.results.map((movie) => {
             return (
               <div key={movie.id} className="grid-item">
-                <div className="image">
+                <div className="card-image">
                   <div className="wrapper">
                     {/* <a href={movie.backdrop_path} className="image"> */}
                     <img
@@ -71,11 +71,13 @@ function App() {
                     {/* </a> */}
                   </div>
                 </div>
-                <div className="content">
-                  <h4>{movie.original_title}</h4>
+                <div className="card-content">
+                  {/* <p>Score: {Math.floor(movie.vote_average * 10)}%</p> */}
+                  <h4 className="movie-title">{movie.original_title}</h4>
                   {/* <p>Popularity Score:{movie.popularity}</p> */}
-                  <p>Score: {Math.floor(movie.vote_average * 10)}%</p>
-                  <p>{dateFormatter(movie.release_date)}</p>
+                  <p className="movie-release-date">
+                    {dateFormatter(movie.release_date)}
+                  </p>
                 </div>
               </div>
             );
