@@ -4,7 +4,7 @@ export const dateFormatter = (date: string) => {
   // to format "Apr 10, 1957"
   console.log(date);
   return new Date(date).toLocaleDateString("en-US", {
-    month: "long",
+    month: "short",
     day: "numeric",
     year: "numeric",
   });
