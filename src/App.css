@@ -45,7 +45,7 @@ main {
 
 /*  Movie Card --------------------------- */
 .grid-item {
-  border: 1px grey solid;
+  border: 1px solid #e3e3e3;
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
