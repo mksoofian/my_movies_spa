@@ -62,19 +62,21 @@ function App() {
             return (
               <div key={movie.id} className="grid-item">
                 <div className="card-image">
-                  <div className="wrapper">
+                  <div className="image-wrapper">
                     {/* <a href={movie.backdrop_path} className="image"> */}
+                    <div className="voter-score">
+                      <p> {Math.floor(movie.vote_average * 10)}</p>{" "}
+                      <span>%</span>
+                    </div>
                     <img
                       className="poster"
                       src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${movie.poster_path}`}
                     />
+
                     {/* </a> */}
                   </div>
                 </div>
                 <div className="card-content">
-                  <div className="voter-score">
-                    <p> {Math.floor(movie.vote_average * 10)}</p> <span>%</span>
-                  </div>
                   <h4 className="movie-title">{movie.original_title}</h4>
                   {/* <p>Popularity Score:{movie.popularity}</p> */}
                   <p className="movie-release-date">
