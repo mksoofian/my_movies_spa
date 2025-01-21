@@ -34,6 +34,7 @@ main {
 .pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 2rem;
 }
 /* .section_centered {
