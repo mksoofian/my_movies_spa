@@ -63,7 +63,6 @@ main {
 }
 
 .card-content {
-  width: 100%;
   padding: 26px 10px 12px;
   position: relative;
   white-space: normal;
@@ -74,6 +73,8 @@ main {
 }
 
 .voter-score {
+  position: absolute;
+  top: -25%;
   height: 2.5rem;
   width: 2.5rem;
   color: white;
