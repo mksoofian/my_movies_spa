@@ -36,10 +36,8 @@ function App() {
   };
 
   const handleClickNextPage = () => {
-    if (topRatedMovies) {
-      if (pageNum < topRatedMovies?.total_pages) {
-        setPageNum(pageNum + 1);
-      }
+    if (topRatedMovies && pageNum < topRatedMovies?.total_pages) {
+      setPageNum(pageNum + 1);
     }
   };
 
