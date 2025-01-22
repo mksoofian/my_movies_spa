@@ -25,6 +25,10 @@ Link2: https://developer.themoviedb.org/
    b. error state,
    c. api key (.env),
    d. pagination
+5. Create Add to Watchlist function (don't worry about persistence yet)
+6. Search functionality (api) or/and search for watchlist
+7. Tabs for filtering
+8. Watchlist: Seperate screen or filtered list?
 
 ---
 
