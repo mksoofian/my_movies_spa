@@ -6,29 +6,30 @@ import { dateFormatter } from "./utils/date-formatter";
 
 function App() {
   const [pageNum, setPageNum] = useState(1);
+  const fetchTopRatedMovies = async (): Promise<TopRatedMovies> => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${
+          import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN
+        }`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageNum}&region=US`,
+      options
+    );
+    const data = await response.json();
+    return data;
+  };
   const {
     isPending,
     error,
     data: topRatedMovies,
   } = useQuery({
     queryKey: ["fetchTopRated", pageNum],
-    queryFn: async (): Promise<TopRatedMovies> => {
-      const options = {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-          Authorization: `Bearer ${
-            import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN
-          }`,
-        },
-      };
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageNum}&region=US`,
-        options
-      );
-      const data = await response.json();
-      return data;
-    },
+    queryFn: fetchTopRatedMovies,
   });
 
   const handleClickPrevPage = () => {
