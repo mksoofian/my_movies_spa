@@ -6,7 +6,7 @@ import { dateFormatter } from "./utils/date-formatter";
 
 function App() {
   const [pageNum, setPageNum] = useState(1);
-  const fetchTopRatedMovies = async (): Promise<TopRatedMovies> => {
+  const fetchTopRatedMovies = async () => {
     const options = {
       method: "GET",
       headers: {
@@ -27,7 +27,7 @@ function App() {
     isPending,
     error,
     data: topRatedMovies,
-  } = useQuery({
+  } = useQuery<TopRatedMovies>({
     queryKey: ["fetchTopRated", pageNum],
     queryFn: fetchTopRatedMovies,
   });
