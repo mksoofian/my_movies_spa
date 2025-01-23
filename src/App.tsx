@@ -67,6 +67,11 @@ function App() {
                       <p> {Math.floor(movie.vote_average * 10)}</p>{" "}
                       <span>%</span>
                     </div>
+
+                    <button className="favorite-button">
+                      <span>+</span>
+                    </button>
+
                     <img
                       className="poster"
                       src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${movie.poster_path}`}
