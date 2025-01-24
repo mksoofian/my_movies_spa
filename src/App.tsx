@@ -68,9 +68,7 @@ function App() {
                       <span>%</span>
                     </div>
 
-                    <button className="favorite-button">
-                      <span>+</span>
-                    </button>
+                    <button className="favorite-button"></button>
 
                     <img
                       className="poster"
