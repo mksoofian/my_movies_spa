@@ -3,6 +3,7 @@ import "./App.css";
 import { TopRatedMovies } from "./types/movie_types";
 import { useQuery } from "@tanstack/react-query";
 import { dateFormatter } from "./utils/date-formatter";
+import { Plus } from "lucide-react";
 
 function App() {
   const [pageNum, setPageNum] = useState(1);
@@ -68,7 +69,9 @@ function App() {
                       <span>%</span>
                     </div>
 
-                    <button className="favorite-button"></button>
+                    <button className="favorite-button">
+                      <Plus size={15} />
+                    </button>
 
                     <img
                       className="poster"
