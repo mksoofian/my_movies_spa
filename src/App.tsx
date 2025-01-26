@@ -7,6 +7,7 @@ import { Plus } from "lucide-react";
 
 function App() {
   const [pageNum, setPageNum] = useState(1);
+  const [watchList, setWatchlist] = useState<string[] | []>([]);
   const fetchTopRatedMovies = async () => {
     const options = {
       method: "GET",
@@ -41,6 +42,13 @@ function App() {
     if (topRatedMovies && pageNum < topRatedMovies?.total_pages) {
       setPageNum(pageNum + 1);
     }
+  };
+
+  const handleAddtoWatchlist = (id: string) => {
+    // add ID to a an array in localStorage
+    setWatchlist([...watchList, id]);
+    const watchlistSerialized = JSON.stringify(watchList);
+    localStorage.setItem("watchList", watchlistSerialized);
   };
 
   if (isPending) return <p>Page is loading data...</p>;
