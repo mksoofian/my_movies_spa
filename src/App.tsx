@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { TopRatedMovies } from "./types/movie_types";
 import { useQuery } from "@tanstack/react-query";
@@ -44,12 +44,16 @@ function App() {
     }
   };
 
-  const handleAddtoWatchlist = (id: string) => {
+  const handleAddtoWatchlist = (id: number) => {
     // add ID to a an array in localStorage
-    setWatchlist([...watchList, id]);
+    setWatchlist([...watchList, id.toString()]);
     const watchlistSerialized = JSON.stringify(watchList);
     localStorage.setItem("watchList", watchlistSerialized);
   };
+
+  useEffect(() => {
+    console.log(localStorage.getItem("watchList"));
+  }, [watchList]);
 
   if (isPending) return <p>Page is loading data...</p>;
   if (error) return <p>An error occured: {error.message}</p>;
@@ -77,7 +81,10 @@ function App() {
                       <span>%</span>
                     </div>
 
-                    <button className="favorite-button">
+                    <button
+                      className="favorite-button"
+                      onClick={() => handleAddtoWatchlist(movie.id)}
+                    >
                       <Plus size={15} />
                     </button>
 
