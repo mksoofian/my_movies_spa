@@ -7,7 +7,7 @@ import { Plus } from "lucide-react";
 
 function App() {
   const [pageNum, setPageNum] = useState(1);
-  const [watchList, setWatchlist] = useState<string[] | []>([]);
+  const [watchlist, setWatchlist] = useState<string[] | null>(null);
   const fetchTopRatedMovies = async () => {
     const options = {
       method: "GET",
@@ -34,6 +34,15 @@ function App() {
     queryFn: fetchTopRatedMovies,
   });
 
+  useEffect(() => {
+    localStorage.getItem("watchlist");
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("watchlist", JSON.stringify(watchlist));
+    console.log(watchlist);
+  }, [watchlist]);
+
   const handleClickPrevPage = () => {
     if (pageNum > 1) setPageNum(pageNum - 1);
   };
@@ -44,16 +53,10 @@ function App() {
     }
   };
 
-  const handleAddtoWatchlist = (id: number) => {
-    // add ID to a an array in localStorage
-    setWatchlist([...watchList, id.toString()]);
-    const watchlistSerialized = JSON.stringify(watchList);
-    localStorage.setItem("watchList", watchlistSerialized);
+  const handleAddtoWatchlist = (id: string) => {
+    if (watchlist !== null && watchlist.includes(id))
+      setWatchlist([...watchlist, id]);
   };
-
-  useEffect(() => {
-    console.log(localStorage.getItem("watchList"));
-  }, [watchList]);
 
   if (isPending) return <p>Page is loading data...</p>;
   if (error) return <p>An error occured: {error.message}</p>;
@@ -83,7 +86,7 @@ function App() {
 
                     <button
                       className="favorite-button"
-                      onClick={() => handleAddtoWatchlist(movie.id)}
+                      onClick={() => handleAddtoWatchlist(movie.id.toString())}
                     >
                       <Plus size={15} />
                     </button>
