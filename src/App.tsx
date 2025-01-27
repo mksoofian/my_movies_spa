@@ -37,12 +37,10 @@ function App() {
 
   useEffect(() => {
     if (localData) setWatchlist(JSON.parse(localData));
-    // console.log(data, JSON.parse(data));
   }, [localData]);
 
   useEffect(() => {
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
-    console.log(watchlist);
   }, [watchlist]);
 
   const handleClickPrevPage = () => {
