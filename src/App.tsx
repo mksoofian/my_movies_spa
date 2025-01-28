@@ -6,7 +6,6 @@ import { dateFormatter } from "./utils/date-formatter";
 import { Plus } from "lucide-react";
 
 function App() {
-  const localData = localStorage.getItem("watchlist");
   const [pageNum, setPageNum] = useState(1);
   const [watchlist, setWatchlist] = useState<string[] | null>(null);
   const fetchTopRatedMovies = async () => {
@@ -36,8 +35,11 @@ function App() {
   });
 
   useEffect(() => {
-    if (localData) setWatchlist(JSON.parse(localData));
-  }, [localData]);
+    const localData = localStorage.getItem("watchlist");
+    if (localData) {
+      setWatchlist(JSON.parse(localData));
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
