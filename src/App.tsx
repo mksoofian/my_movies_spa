@@ -37,21 +37,10 @@ function App() {
 
   useEffect(() => {
     const localData = localStorage.getItem("watchlist");
-    console.log(`useEffect 01: ${localData}`);
-
     if (localData) {
       setWatchlist(JSON.parse(localData));
-      console.log(`useEffect 02: ${localData}`);
     }
   }, []);
-
-  //   useEffect(() => {
-  //     // const localData = localStorage.getItem("watchlist");
-  //     console.log(`watchList changed to: ${watchlist}, setting localStorage`);
-  //     localStorage.setItem("watchlist", JSON.stringify(watchlist));
-  //     const localData = localStorage.getItem("watchlist");
-  //     console.log(`localStorage set to: ${localData}`);
-  //   }, [watchlist]);
 
   const handleClickPrevPage = () => {
     if (pageNum > 1) setPageNum(pageNum - 1);
@@ -67,14 +56,11 @@ function App() {
     // Make sure watchlist is not null and does not already include the movie.id
     if (!watchlist) {
       setWatchlist([id]);
-      console.log(`new watchlist ${watchlist}`);
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
     } else if (watchlist && watchlist.includes(id) === false) {
       setWatchlist([...watchlist, id]);
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
-      console.log(`adding to watchlist ${id}, updated watchlist: ${watchlist}`);
     } else if (watchlist && watchlist.includes(id)) {
-      console.log(`Movie id ${id} is already in your watchlist`);
       return;
     }
   };
