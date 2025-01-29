@@ -6,7 +6,6 @@ import { dateFormatter } from "./utils/date-formatter";
 import { Plus } from "lucide-react";
 
 function App() {
-  console.log(`running app`);
   const [pageNum, setPageNum] = useState(1);
   const [watchlist, setWatchlist] = useState<string[] | null>(null);
   const fetchTopRatedMovies = async () => {
