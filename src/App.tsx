@@ -54,12 +54,15 @@ function App() {
   const handleAddtoWatchlist = (id: string) => {
     // Make sure watchlist is not null and does not already include the movie.id
     if (!watchlist) {
+      localStorage.setItem("watchlist", JSON.stringify(watchlist));
       setWatchlist([id]);
+      console.log(`new watchlist ${watchlist}`);
+    } else if (watchlist && !watchlist.includes(id)) {
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
-    } else if (watchlist && watchlist.includes(id) === false) {
       setWatchlist([...watchlist, id]);
-      localStorage.setItem("watchlist", JSON.stringify(watchlist));
+      console.log(`adding to watchlist ${id}, updated watchlist: ${watchlist}`);
     } else if (watchlist && watchlist.includes(id)) {
+      console.log(`Movie id ${id} is already in your watchlist`);
       return;
     }
   };
