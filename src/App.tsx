@@ -103,6 +103,7 @@ function App() {
                     <button
                       className="favorite-button"
                       onClick={() => handleAddtoWatchlist(movie.id.toString())}
+                      disabled={watchlist?.includes(movie.id.toString())}
                     >
                       <Plus size={15} />
                     </button>
