@@ -3,7 +3,7 @@ import "./App.css";
 import { TopRatedMovies } from "./types/movie_types";
 import { useQuery } from "@tanstack/react-query";
 import { dateFormatter } from "./utils/date-formatter";
-import { Plus } from "lucide-react";
+import { Check, Plus } from "lucide-react";
 
 function App() {
   const [pageNum, setPageNum] = useState(1);
@@ -105,7 +105,11 @@ function App() {
                       onClick={() => handleAddtoWatchlist(movie.id.toString())}
                       disabled={watchlist?.includes(movie.id.toString())}
                     >
-                      <Plus size={15} />
+                      {watchlist?.includes(movie.id.toString()) ? (
+                        <Check size={15} />
+                      ) : (
+                        <Plus size={15} />
+                      )}
                     </button>
 
                     <img
