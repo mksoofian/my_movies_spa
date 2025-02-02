@@ -58,7 +58,7 @@ function App() {
     }
   }, [watchlist]);
 
-  const handleAddtoWatchlist = (id: string) => {
+  const handleAddRemoveWatchlist = (id: string) => {
     // Make sure watchlist is not null and does not already include the movie.id
     if (!watchlist) {
       setWatchlist([id]);
@@ -69,7 +69,12 @@ function App() {
 
       //   console.log(`adding to watchlist ${id}, current watchlist: ${watchlist}`);
     } else if (watchlist && watchlist.includes(id)) {
-      console.log(`Movie id ${id} is already in your watchlist`);
+      // If item exists, lets remove it from the watchlist
+      const newWatchlist = watchlist.filter((item) => item !== id);
+      console.log(
+        `Movie id ${id} is already in your watchlist, removing... new list ${newWatchlist}`
+      );
+      setWatchlist(newWatchlist);
       return;
     }
   };
@@ -107,7 +112,9 @@ function App() {
                           ? " favorite-button-checked"
                           : " favorite-button-default")
                       }
-                      onClick={() => handleAddtoWatchlist(movie.id.toString())}
+                      onClick={() =>
+                        handleAddRemoveWatchlist(movie.id.toString())
+                      }
                     >
                       {watchlist?.includes(movie.id.toString()) ? (
                         <Check size={15} />
