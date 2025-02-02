@@ -75,7 +75,6 @@ function App() {
         `Movie id ${id} is already in your watchlist, removing... new list ${newWatchlist}`
       );
       setWatchlist(newWatchlist);
-      return;
     }
   };
 
