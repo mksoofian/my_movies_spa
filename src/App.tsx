@@ -124,7 +124,6 @@ function App() {
                 </div>
                 <div className="card-content">
                   <h4 className="movie-title">{movie.original_title}</h4>
-                  {/* <p>Popularity Score:{movie.popularity}</p> */}
                   <p className="movie-release-date">
                     {dateFormatter(movie.release_date)}
                   </p>
