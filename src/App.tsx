@@ -101,9 +101,12 @@ function App() {
                     </div>
 
                     <button
-                      className="favorite-button"
+                      className={`favorite-button ${watchlist?.includes(
+                        movie.id.toString()
+                          ? "favorite-button"
+                          : "favorite-button-default"
+                      )}"`}
                       onClick={() => handleAddtoWatchlist(movie.id.toString())}
-                      disabled={watchlist?.includes(movie.id.toString())}
                     >
                       {watchlist?.includes(movie.id.toString()) ? (
                         <Check size={15} />

@@ -111,8 +111,16 @@ main {
   align-items: center;
   overflow: hidden;
 }
+.favorite-button-default {
+  opacity: 0.6;
+  background-color: #e3e3e3;
+}
+.favorite-button-checked {
+  opacity: 0.8;
+  background-color: #21d07a;
+}
 
-.favorite-button:hover {
+.favorite-button-default:hover {
   opacity: 0.8;
 }
 
