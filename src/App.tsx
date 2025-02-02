@@ -4,6 +4,7 @@ import { TopRatedMovies } from "./types/movie_types";
 import { useQuery } from "@tanstack/react-query";
 import { dateFormatter } from "./utils/date-formatter";
 import { Check, Plus } from "lucide-react";
+import SearchBox from "./components/search-box";
 
 function App() {
   const [pageNum, setPageNum] = useState(1);
@@ -78,6 +79,7 @@ function App() {
       <section className="section_centered">
         <div className="header-nav">
           <h2> Top-Rated Movies</h2>
+          <SearchBox />
           <div className="pagination">
             <button onClick={handleClickPrevPage}>prev</button>
             <p>Page: {topRatedMovies.page}</p>

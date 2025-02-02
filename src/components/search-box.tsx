@@ -1,3 +1,3 @@
 export default function SearchBox() {
-  return <input placeholder="input text here..."> </input>;
+  return <input placeholder="input text here..." />;
 }
