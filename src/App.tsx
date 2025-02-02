@@ -54,7 +54,6 @@ function App() {
   useEffect(() => {
     if (watchlist) {
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
-      console.log(`new watchlist ${watchlist}`);
     }
   }, [watchlist]);
 
@@ -62,18 +61,11 @@ function App() {
     // Make sure watchlist is not null and does not already include the movie.id
     if (!watchlist) {
       setWatchlist([id]);
-
-      //   console.log(`new watchlist ${watchlist}`);
     } else if (watchlist && !watchlist.includes(id)) {
       setWatchlist([...watchlist, id]);
-
-      //   console.log(`adding to watchlist ${id}, current watchlist: ${watchlist}`);
     } else if (watchlist && watchlist.includes(id)) {
       // If item exists, lets remove it from the watchlist
       const newWatchlist = watchlist.filter((item) => item !== id);
-      console.log(
-        `Movie id ${id} is already in your watchlist, removing... new list ${newWatchlist}`
-      );
       setWatchlist(newWatchlist);
     }
   };
