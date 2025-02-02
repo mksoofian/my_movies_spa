@@ -101,11 +101,12 @@ function App() {
                     </div>
 
                     <button
-                      className={`favorite-button ${watchlist?.includes(
-                        movie.id.toString()
-                          ? "favorite-button"
-                          : "favorite-button-default"
-                      )}"`}
+                      className={
+                        "favorite-button" +
+                        (watchlist?.includes(movie.id.toString())
+                          ? " favorite-button-checked"
+                          : " favorite-button-default")
+                      }
                       onClick={() => handleAddtoWatchlist(movie.id.toString())}
                     >
                       {watchlist?.includes(movie.id.toString()) ? (
