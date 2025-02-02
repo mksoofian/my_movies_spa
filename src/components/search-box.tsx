@@ -1,3 +1,10 @@
+// import { Search } from "lucide-react";
+
 export default function SearchBox() {
-  return <input placeholder="input text here..." />;
+  return (
+    <div>
+      {/* <Search size={25} /> */}
+      <input placeholder={`Search a movie...`} />
+    </div>
+  );
 }
