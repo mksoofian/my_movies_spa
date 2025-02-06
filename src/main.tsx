@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { Layout } from "./Layouts/default-layout.tsx";
 import TopRated from "./pages/topRated.tsx";
+import Watchlist from "./pages/watchlist.tsx";
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "/toprated",
         element: <TopRated />,
+      },
+      {
+        path: "/watchlist",
+        element: <Watchlist />,
       },
     ],
   },
