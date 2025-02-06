@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import "../App.css";
 import { useQuery } from "@tanstack/react-query";
 import { Check, Plus } from "lucide-react";
 import { TopRatedMovies } from "../types/movie_types";
