@@ -30,6 +30,9 @@ Link2: https://developer.themoviedb.org/
 7. Tabs for filtering
 8. Watchlist: Seperate screen or filtered list?
 
+Follow this tutorial for react-router setup and layout: https://www.youtube.com/watch?v=peS-Y3BcfUo&ab_channel=NoorMohammad
+Note: install react-router from the docs, make sure you npm i if you are getting an error like EONT and npm run dev again
+
 ---
 
 ---
