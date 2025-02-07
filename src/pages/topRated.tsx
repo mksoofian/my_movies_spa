@@ -76,8 +76,8 @@ function TopRated() {
   return (
     <main>
       <section className="section_centered">
-        <div className="header-nav">
-          <h2> Top-Rated Movies</h2>
+        <div className="header">
+          <h1> Top-Rated Movies</h1>
           <div className="pagination">
             <button onClick={handleClickPrevPage}>prev</button>
             <p>Page: {topRatedMovies.page}</p>
