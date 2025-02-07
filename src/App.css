@@ -19,13 +19,30 @@ h4 {
 /* Voter score colors: #21d07a #d2d531 #db2360*/
 
 /* ----------- */
+header {
+  margin: 1rem 0;
+  background-color: rgb(195, 195, 236);
+}
 
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+nav > a {
+  color: black;
+  font-weight: 600;
+}
+
+/* ----------- */
 main {
   width: 80vw;
   padding: 1rem;
 }
 
-.header-nav {
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
