@@ -1,62 +1,59 @@
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { TopRatedMovies } from "./types/movie_types";
+import { useQuery } from "@tanstack/react-query";
 
-export const AuthContext = createContext<GlobalContent>({
-  isLoggedIn: false, // set a default value
-  setIsLoggedIn: (_value: boolean) => {},
-  handleLogOut: () => {},
-  idleExpiresAt: 1000,
-  idleTime: 0,
+export const watchlistContext = createContext<GlobalContent>({
+  //   isLoggedIn: false, // set a default value
+  //   setIsLoggedIn: (_value: boolean) => {},
+  //   handleLogOut: () => {},
+  //   idleExpiresAt: 1000,
+  //   idleTime: 0,
 });
 
 export const useAuthContext = () => useContext(AuthContext);
-export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // initializes state as false
-  // Router for redirecting users and checking paths
-  const router = useRouter();
-  const pathname = usePathname();
-  // "Idle Timer" for session expiration
-  const { idleTime, handleUserInteraction } = useIdleTimer();
-  // Session Expiration determines limit of how many seconds until session expires/logout
-  const [idleExpiresAt, setIdleExpiresAt] = useState(180);
-  //   const [expirationDate, setExpirationDate] = useState();
+export function AuthProvider = props => {
+  const [pageNum, setPageNum] = useState(1);
+  const [watchlist, setWatchlist] = useState<string[] | null>(null);
+ 
 
-  //Updates on initial render
   useEffect(() => {
-    const storedId = localStorage.getItem("expires-at");
-    if (storedId) {
-      setIsLoggedIn(true);
-      console.log(isLoggedIn);
+    const localData = localStorage.getItem("watchlist");
+    if (localData) {
+      setWatchlist(JSON.parse(localData));
     }
   }, []);
 
-  // Keeps user out of protected routes
-  useEffect(() => {
-    if (isLoggedIn && unprotectedRoutes.includes(pathname)) {
-      router.push("/dashboard");
-      console.log(isLoggedIn);
-    } else if (!isLoggedIn && protectedRoutes.includes(pathname)) {
-      router.push("/login");
-      console.log("You do not have permission to be here, please log in");
-      handleLogOut();
-    }
-  }, [isLoggedIn]);
-
-  const handleLogOut = () => {
-    localStorage.removeItem("login-expires");
-    setIsLoggedIn(false);
-    console.log(isLoggedIn);
+  const handleClickPrevPage = () => {
+    if (pageNum > 1) setPageNum(pageNum - 1);
   };
 
-  // Expires session when the  to session expiration
-  useEffect(() => {
-    if (isLoggedIn && idleTime === idleExpiresAt) {
-      handleLogOut();
-      console.log(
-        "Session expired, you have been logged out due to inactivity"
-      );
-      router.push("/home"); //sends user back to home page since they are no longer logged in
+  const handleClickNextPage = () => {
+    if (topRatedMovies && pageNum < topRatedMovies?.total_pages) {
+      setPageNum(pageNum + 1);
     }
-  }, [idleTime]); // Execute every time the idle timer updates
+  };
+
+  useEffect(() => {
+    if (watchlist) {
+      localStorage.setItem("watchlist", JSON.stringify(watchlist));
+    }
+  }, [watchlist]);
+
+  const handleAddRemoveWatchlist = (id: string) => {
+    // Make sure watchlist is not null and does not already include the movie.id
+    if (!watchlist) {
+      setWatchlist([id]);
+    } else if (watchlist && !watchlist.includes(id)) {
+      setWatchlist([...watchlist, id]);
+    } else if (watchlist && watchlist.includes(id)) {
+      // If item exists, lets remove it from the watchlist
+      const newWatchlist = watchlist.filter((item) => item !== id);
+      setWatchlist(newWatchlist);
+    }
+  };
+
+  if (isPending) return <p>Page is loading data...</p>;
+  if (error) return <p>An error occured: {error.message}</p>;
 
   return (
     <AuthContext.Provider
