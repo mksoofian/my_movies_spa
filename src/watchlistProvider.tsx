@@ -1,14 +1,32 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { TopRatedMovies } from "./types/movie_types";
 import { useQuery } from "@tanstack/react-query";
 
-export const watchlistContext = createContext<GlobalContent>({
-  //   isLoggedIn: false, // set a default value
-  //   setIsLoggedIn: (_value: boolean) => {},
-  //   handleLogOut: () => {},
-  //   idleExpiresAt: 1000,
-  //   idleTime: 0,
+
+export type GlobalStateType = {
+  firstname: string;
+  lastname: string;
+  age: string;
+}
+const GlobalStateContext = createContext({
+  state: {} as Partial<GlobalStateType>,
+  setState: {} as Dispatch<SetStateAction<Partial<GlobalStateType>>>,
 });
+const GlobalStateProvider = ({
+  children,
+  value = {} as GlobalStateType,
+}: {
+  children: React.ReactNode;
+  value?: Partial<GlobalStateType>;
+}) => {
+  const [state, setState] = useState(value);
+  return (
+    <GlobalStateContext.Provider value={{ state, setState }}>
+      {children}
+    </GlobalStateContext.Provider>
+  );
+};
+
 
 export const useAuthContext = () => useContext(AuthContext);
 export function AuthProvider = props => {
