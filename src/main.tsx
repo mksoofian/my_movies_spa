@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import { Layout } from "./Layouts/default-layout.tsx";
 import TopRated from "./pages/topRated.tsx";
 import Watchlist from "./pages/watchlist.tsx";
+import { GlobalStateProvider } from "./providers/watchlistProvider.tsx";
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -33,7 +34,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <GlobalStateProvider>
+        <RouterProvider router={router} />
+      </GlobalStateProvider>
     </QueryClientProvider>
   </StrictMode>
 );
