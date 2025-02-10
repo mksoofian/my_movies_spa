@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../App.css";
 import { useQuery } from "@tanstack/react-query";
 import { Check, Plus } from "lucide-react";
 import { TopRatedMovies } from "../types/movie_types";
 import { dateFormatter } from "../utils/date-formatter";
+import { useGlobalState } from "../providers/watchlistProvider";
 
 function TopRated() {
+  const { watchlist, setWatchlist } = useGlobalState();
   const [pageNum, setPageNum] = useState(1);
-  const [watchlist, setWatchlist] = useState<string[] | null>(null);
+
   const fetchTopRatedMovies = async () => {
     const options = {
       method: "GET",
@@ -34,13 +36,6 @@ function TopRated() {
     queryFn: fetchTopRatedMovies,
   });
 
-  useEffect(() => {
-    const localData = localStorage.getItem("watchlist");
-    if (localData) {
-      setWatchlist(JSON.parse(localData));
-    }
-  }, []);
-
   const handleClickPrevPage = () => {
     if (pageNum > 1) setPageNum(pageNum - 1);
   };
@@ -50,12 +45,6 @@ function TopRated() {
       setPageNum(pageNum + 1);
     }
   };
-
-  useEffect(() => {
-    if (watchlist) {
-      localStorage.setItem("watchlist", JSON.stringify(watchlist));
-    }
-  }, [watchlist]);
 
   const handleAddRemoveWatchlist = (id: string) => {
     // Make sure watchlist is not null and does not already include the movie.id
