@@ -1,17 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-export type GlobalStateType = {
+export type WatchlistStateType = {
   watchlist: string[] | null;
   setWatchlist: (c: string[] | null) => void;
 };
 
-const GlobalStateContext = createContext<GlobalStateType>({
+const WatchlistStateContext = createContext<WatchlistStateType>({
   watchlist: null,
   setWatchlist: (c: string[] | null) => {},
 });
 
-const useGlobalState = () => {
-  const context = useContext(GlobalStateContext);
+const useWatchlistState = () => {
+  const context = useContext(WatchlistStateContext);
   if (!context) {
     throw new Error("useGlobalState must be used within a GlobalStateContext");
   }
@@ -34,10 +34,10 @@ const GlobalStateProvider = ({ children }: { children: React.ReactNode }) => {
   }, [watchlist]);
 
   return (
-    <GlobalStateContext.Provider value={{ watchlist, setWatchlist }}>
+    <WatchlistStateContext.Provider value={{ watchlist, setWatchlist }}>
       {children}
-    </GlobalStateContext.Provider>
+    </WatchlistStateContext.Provider>
   );
 };
 
-export { GlobalStateProvider, useGlobalState };
+export { GlobalStateProvider, useWatchlistState };

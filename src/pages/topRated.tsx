@@ -4,10 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import { Check, Plus } from "lucide-react";
 import { TopRatedMovies } from "../types/movie_types";
 import { dateFormatter } from "../utils/date-formatter";
-import { useGlobalState } from "../providers/watchlistProvider";
+import { useWatchlistState } from "../providers/watchlistProvider";
 
 function TopRated() {
-  const { watchlist, setWatchlist } = useGlobalState();
+  const { watchlist, setWatchlist } = useWatchlistState();
   const [pageNum, setPageNum] = useState(1);
 
   const fetchTopRatedMovies = async () => {
