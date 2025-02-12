@@ -1,12 +1,4 @@
-import {
-  createContext,
-  //   Dispatch,
-  //   SetStateAction,
-  useContext,
-  useEffect,
-  //   useEffect,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export type GlobalStateType = {
   watchlist: string[] | null;
@@ -26,7 +18,7 @@ const useGlobalState = () => {
   return context;
 };
 const GlobalStateProvider = ({ children }: { children: React.ReactNode }) => {
-  const [watchlist, setWatchlist] = useState(null);
+  const [watchlist, setWatchlist] = useState<string[] | null>(null);
 
   useEffect(() => {
     const localData = localStorage.getItem("watchlist");
@@ -40,6 +32,7 @@ const GlobalStateProvider = ({ children }: { children: React.ReactNode }) => {
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
     }
   }, [watchlist]);
+
   return (
     <GlobalStateContext.Provider value={{ watchlist, setWatchlist }}>
       {children}
