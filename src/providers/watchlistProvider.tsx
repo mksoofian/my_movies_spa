@@ -1,14 +1,19 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+type WatchlistObj = {
+  id: string;
+  title: string;
+};
+
 export type WatchlistStateType = {
-  watchlist: string[] | null;
-  setWatchlist: (c: string[] | null) => void;
+  watchlist: null | WatchlistObj;
+  setWatchlist: (c: null | WatchlistObj) => void;
 };
 
 const WatchlistStateContext = createContext<WatchlistStateType>({
   watchlist: null,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setWatchlist: (c: string[] | null) => {},
+  setWatchlist: (c: null | WatchlistObj) => {},
 });
 
 const useWatchlistState = () => {
@@ -20,7 +25,7 @@ const useWatchlistState = () => {
 };
 
 const GlobalStateProvider = ({ children }: { children: React.ReactNode }) => {
-  const [watchlist, setWatchlist] = useState<string[] | null>(null);
+  const [watchlist, setWatchlist] = useState<null | WatchlistObj>(null);
 
   useEffect(() => {
     const localData = localStorage.getItem("watchlist");
