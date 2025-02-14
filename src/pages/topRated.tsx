@@ -105,11 +105,11 @@ function TopRated() {
                         )
                       }
                     >
-                      {/* {watchlist?.includes(movie.id.toString()) ? ( */}
-                      <Check size={15} />
-                      {/* ) : ( */}
-                      <Plus size={15} />
-                      {/* )} */}
+                      {watchlistChecker(movie.id.toString()) ? (
+                        <Check size={15} />
+                      ) : (
+                        <Plus size={15} />
+                      )}
                     </button>
 
                     <img
