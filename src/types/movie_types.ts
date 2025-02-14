@@ -1,4 +1,4 @@
-export type TopRatedMovies = {
+export type MovieApiResponse = {
   page: number;
   results: Movie[];
   total_pages: number;

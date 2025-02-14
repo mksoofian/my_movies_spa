@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../App.css";
 import { useQuery } from "@tanstack/react-query";
 import { Check, Plus } from "lucide-react";
-import { TopRatedMovies } from "../types/movie_types";
+import { MovieApiResponse } from "../types/movie_types";
 import { dateFormatter } from "../utils/date-formatter";
 import { useWatchlistState } from "../providers/watchlistProvider";
 
@@ -31,7 +31,7 @@ function TopRated() {
     isPending,
     error,
     data: topRatedMovies,
-  } = useQuery<TopRatedMovies>({
+  } = useQuery<MovieApiResponse>({
     queryKey: ["fetchTopRated", pageNum],
     queryFn: fetchTopRatedMovies,
   });
