@@ -98,12 +98,11 @@ function TopRated() {
                         //   ? " favorite-button-checked"
                         //   : " favorite-button-default")
                       }
-                      onClick={
-                        () => watchlistChecker(movie.id.toString())
-                        // handleAddRemoveWatchlist(
-                        //   movie.id.toString(),
-                        //   movie.title
-                        // )
+                      onClick={() =>
+                        handleAddRemoveWatchlist(
+                          movie.id.toString(),
+                          movie.title
+                        )
                       }
                     >
                       {/* {watchlist?.includes(movie.id.toString()) ? ( */}
