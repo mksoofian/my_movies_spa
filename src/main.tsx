@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import { Layout } from "./Layouts/default-layout.tsx";
 import TopRated from "./pages/topRated.tsx";
 import Watchlist from "./pages/watchlist.tsx";
-import { GlobalStateProvider } from "./providers/watchlistProvider.tsx";
+import { WatchlistProvider } from "./providers/watchlistProvider.tsx";
 import Search from "./pages/search.tsx";
 const queryClient = new QueryClient();
 
@@ -39,9 +39,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <GlobalStateProvider>
+      <WatchlistProvider>
         <RouterProvider router={router} />
-      </GlobalStateProvider>
+      </WatchlistProvider>
     </QueryClientProvider>
   </StrictMode>
 );
