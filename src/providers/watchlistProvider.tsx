@@ -13,7 +13,7 @@ export type WatchlistStateType = {
 const WatchlistStateContext = createContext<WatchlistStateType>({
   watchlist: null,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setWatchlist: (c: null | WatchlistObj[]) => {},
+  setWatchlist: (_c: null | WatchlistObj[]) => {},
 });
 
 const useWatchlistState = () => {
