@@ -64,6 +64,10 @@ main {
   align-items: center;
   gap: 2rem;
 }
+.footerPagination {
+  margin: 2rem 0;
+}
+
 /* .section_centered {
   text-align: center;
 } */

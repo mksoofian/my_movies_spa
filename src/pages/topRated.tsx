@@ -128,7 +128,7 @@ function TopRated() {
           })}
         </div>
       </section>
-      <div className="pagination">
+      <div className="pagination footerPagination">
         <button onClick={handleClickPrevPage}>prev</button>
         <p>Page: {topRatedMovies.page}</p>
         <button onClick={handleClickNextPage}>next</button>
