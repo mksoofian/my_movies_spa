@@ -46,13 +46,19 @@ function TopRated() {
     }
   };
 
+  console.log(watchlist);
+
+  const watchlistChecker = (id: string) => {
+    return watchlist?.some((obj) => obj.id === id);
+  };
+
   const handleAddRemoveWatchlist = (id: string, title: string) => {
     // Make sure watchlist is not null and does not already include the movie.id
     if (!watchlist) {
       setWatchlist([{ id: id, title: title }]);
-    } else if (watchlist && !watchlist.includes(id)) {
+    } else if (watchlist && !watchlistChecker(id)) {
       setWatchlist([...watchlist, { id: id, title: title }]);
-    } else if (watchlist && watchlist.includes(id)) {
+    } else if (watchlist && watchlistChecker(id)) {
       // If item exists, lets remove it from the watchlist
       setWatchlist(watchlist.filter((item) => item.id !== id));
     }
@@ -86,23 +92,25 @@ function TopRated() {
 
                     <button
                       className={
-                        "favorite-button" +
-                        (watchlist?.includes(movie.id.toString())
-                          ? " favorite-button-checked"
-                          : " favorite-button-default")
+                        "favorite-button"
+                        // +
+                        // (watchlist?.includes(movie.id.toString())
+                        //   ? " favorite-button-checked"
+                        //   : " favorite-button-default")
                       }
-                      onClick={() =>
-                        handleAddRemoveWatchlist(
-                          movie.id.toString(),
-                          movie.title
-                        )
+                      onClick={
+                        () => watchlistChecker(movie.id.toString())
+                        // handleAddRemoveWatchlist(
+                        //   movie.id.toString(),
+                        //   movie.title
+                        // )
                       }
                     >
-                      {watchlist?.includes(movie.id.toString()) ? (
-                        <Check size={15} />
-                      ) : (
-                        <Plus size={15} />
-                      )}
+                      {/* {watchlist?.includes(movie.id.toString()) ? ( */}
+                      <Check size={15} />
+                      {/* ) : ( */}
+                      <Plus size={15} />
+                      {/* )} */}
                     </button>
 
                     <img
