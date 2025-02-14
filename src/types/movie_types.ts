@@ -1,3 +1,8 @@
+export type WatchlistObj = {
+  id: string;
+  title: string;
+};
+
 export type MovieApiResponse = {
   page: number;
   results: Movie[];

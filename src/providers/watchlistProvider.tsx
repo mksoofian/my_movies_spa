@@ -1,9 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-
-type WatchlistObj = {
-  id: string;
-  title: string;
-};
+import { WatchlistObj } from "../types/movie_types";
 
 export type WatchlistStateType = {
   watchlist: null | WatchlistObj[];
