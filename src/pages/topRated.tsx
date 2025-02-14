@@ -46,16 +46,15 @@ function TopRated() {
     }
   };
 
-  const handleAddRemoveWatchlist = (id: string) => {
+  const handleAddRemoveWatchlist = (id: string, title: string) => {
     // Make sure watchlist is not null and does not already include the movie.id
     if (!watchlist) {
-      setWatchlist([id]);
+      setWatchlist([{ id: id, title: title }]);
     } else if (watchlist && !watchlist.includes(id)) {
-      setWatchlist([...watchlist, id]);
+      setWatchlist([...watchlist, { id: id, title: title }]);
     } else if (watchlist && watchlist.includes(id)) {
       // If item exists, lets remove it from the watchlist
-      const newWatchlist = watchlist.filter((item) => item !== id);
-      setWatchlist(newWatchlist);
+      setWatchlist(watchlist.filter((item) => item.id !== id));
     }
   };
 
@@ -93,7 +92,10 @@ function TopRated() {
                           : " favorite-button-default")
                       }
                       onClick={() =>
-                        handleAddRemoveWatchlist(movie.id.toString())
+                        handleAddRemoveWatchlist(
+                          movie.id.toString(),
+                          movie.title
+                        )
                       }
                     >
                       {watchlist?.includes(movie.id.toString()) ? (
