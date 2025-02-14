@@ -90,11 +90,10 @@ function TopRated() {
 
                     <button
                       className={
-                        "favorite-button"
-                        // +
-                        // (watchlist?.includes(movie.id.toString())
-                        //   ? " favorite-button-checked"
-                        //   : " favorite-button-default")
+                        "favorite-button" +
+                        (watchlistChecker(movie.id.toString())
+                          ? " favorite-button-checked"
+                          : " favorite-button-default")
                       }
                       onClick={() =>
                         handleAddRemoveWatchlist(
