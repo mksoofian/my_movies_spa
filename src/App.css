@@ -17,11 +17,20 @@ h4 {
 }
 
 /* Voter score colors: #21d07a #d2d531 #db2360*/
+/* Other color: #e3e3e3, #f4f4f4 */
 
 /* ----------- */
 header {
+  position: sticky;
+  top: 2rem;
+  max-width: 1200px;
   margin: 1rem 0;
-  background-color: rgb(195, 195, 236);
+  background-color: #f4f4f4;
+  border: 1px solid #e3e3e3;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
 }
 
 nav {
@@ -29,6 +38,7 @@ nav {
   align-items: center;
   justify-content: center;
   gap: 2rem;
+  padding: 1rem 2em;
 }
 
 nav > a {
