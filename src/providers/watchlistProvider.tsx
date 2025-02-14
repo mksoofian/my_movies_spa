@@ -12,8 +12,7 @@ export type WatchlistStateType = {
 
 const WatchlistStateContext = createContext<WatchlistStateType>({
   watchlist: null,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setWatchlist: (_c: null | WatchlistObj[]) => {},
+  setWatchlist: () => {},
 });
 
 const useWatchlistState = () => {
@@ -24,7 +23,7 @@ const useWatchlistState = () => {
   return context;
 };
 
-const GlobalStateProvider = ({ children }: { children: React.ReactNode }) => {
+const WatchlistProvider = ({ children }: { children: React.ReactNode }) => {
   const [watchlist, setWatchlist] = useState<null | WatchlistObj[]>(null);
 
   useEffect(() => {
@@ -47,4 +46,4 @@ const GlobalStateProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export { GlobalStateProvider, useWatchlistState };
+export { WatchlistProvider, useWatchlistState };
