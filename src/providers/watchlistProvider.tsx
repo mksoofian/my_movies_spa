@@ -2,12 +2,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { WatchlistObj } from "../types/movie_types";
 
 export type WatchlistStateType = {
-  watchlist: null | WatchlistObj[];
-  setWatchlist: (c: null | WatchlistObj[]) => void;
+  watchlist: [] | WatchlistObj[];
+  setWatchlist: (c: [] | WatchlistObj[]) => void;
 };
 
 const WatchlistStateContext = createContext<WatchlistStateType>({
-  watchlist: null,
+  watchlist: [],
   setWatchlist: () => {},
 });
 
@@ -20,7 +20,7 @@ const useWatchlistState = () => {
 };
 
 const WatchlistProvider = ({ children }: { children: React.ReactNode }) => {
-  const [watchlist, setWatchlist] = useState<null | WatchlistObj[]>(null);
+  const [watchlist, setWatchlist] = useState<[] | WatchlistObj[]>([]);
 
   useEffect(() => {
     const localData = localStorage.getItem("watchlist");
