@@ -29,7 +29,7 @@ function Watchlist() {
   };
 
   const fetchMoviesFromWatchlist = useQueries({
-    queries: watchlist?.map((movie) => {
+    queries: watchlist.map((movie) => {
       return {
         queryKey: ["movieKey", movie],
         queryFn: fetchWatchlistAPI(movie.title),
