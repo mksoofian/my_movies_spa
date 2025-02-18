@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useWatchlistState } from "../providers/watchlistProvider";
 // import { useQueries, useQuery } from "@tanstack/react-query";
 import { MovieApiResponse } from "../types/movie_types";
 
 function Watchlist() {
   const { watchlist } = useWatchlistState();
-  //   const [watchlistFromApi, setWatchlistFromApi] = useState([]);
+  const [watchlistFromApi, setWatchlistFromApi] = useState([]);
   //   const [pageNum, setPageNum] = useState(1);
 
   useEffect(() => {
@@ -31,7 +31,12 @@ function Watchlist() {
 
     watchlist.forEach(async (movie) => {
       const movieResult = await fetchWatchlistAPI(movie.title);
-      console.log(movie, movieResult);
+
+      //   setWatchlistFromApi();
+      console.log(
+        movie,
+        movieResult.results.find((item) => item.id.toString() === movie.id)
+      );
     });
   }, [watchlist]);
 
