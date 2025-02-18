@@ -30,7 +30,7 @@ const WatchlistProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    if (watchlist) {
+    if (watchlist.length > 0) {
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
     }
   }, [watchlist]);
