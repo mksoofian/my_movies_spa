@@ -47,7 +47,7 @@ function TopRated() {
   };
 
   const watchlistChecker = (id: string) => {
-    return watchlist?.some((obj) => obj.id === id);
+    return watchlist?.some((obj) => obj.id === id) ? true : false;
   };
 
   const handleAddRemoveWatchlist = (id: string, title: string) => {
