@@ -43,7 +43,7 @@ function Watchlist() {
 
       if (movieMatchFound) {
         setWatchlistFromApi([...watchlistFromApi, movieMatchFound]);
-        console.log(movie, movieMatchFound);
+        console.log(movie, movieMatchFound, watchlistFromApi);
       }
       //   setWatchlistFromApi();
     });
