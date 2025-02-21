@@ -40,14 +40,17 @@ function Watchlist() {
       const movieMatchFound = movieResult.results.find(
         (item) => item.id.toString() === movie.id
       );
-
-      if (movieMatchFound) {
+      const movieMatchId = movieMatchFound?.id.toString();
+      if (
+        movieMatchFound &&
+        watchlistFromApi.some((movie) => movie.id.toString() === movieMatchId)
+      ) {
         setWatchlistFromApi([...watchlistFromApi, movieMatchFound]);
         console.log(movie, movieMatchFound, watchlistFromApi);
       }
       //   setWatchlistFromApi();
     });
-  }, [watchlist]);
+  }, [watchlist, watchlistFromApi]);
 
   //   const fetchMoviesFromWatchlist = useQueries({
   //     queries: watchlist.map((movie) => {
