@@ -31,27 +31,27 @@ function Watchlist() {
       return data;
     };
 
-    // const watchlistChecker = (id: string) => {
-    //   return watchlist?.some((obj) => obj.id === id);
-    // };
-
+    //For each id in watchlist, fetch movies with that id
+    //If the result has a corresponding ID, add it to the watchlistFromApi
+    const tempWatchlist: Movie[] = [];
     watchlist.forEach(async (movie) => {
       const movieResult = await fetchWatchlistAPI(movie.title);
+
       const movieMatchFound = movieResult.results.find(
         (item) => item.id.toString() === movie.id
       );
-      const movieMatchId = movieMatchFound?.id.toString();
-      if (
-        movieMatchFound &&
-        watchlistFromApi.some((movie) => movie.id.toString() === movieMatchId)
-      ) {
-        setWatchlistFromApi([...watchlistFromApi, movieMatchFound]);
-        console.log(movie, movieMatchFound, watchlistFromApi);
+      console.log(movieResult, movieMatchFound);
+      if (movieMatchFound) {
+        tempWatchlist.push(movieMatchFound);
+        // setWatchlistFromApi([...watchlistFromApi, movieMatchFound]);
+        console.log(watchlistFromApi);
       }
-      //   setWatchlistFromApi();
+      setWatchlistFromApi(tempWatchlist);
+      console.log(tempWatchlist, watchlistFromApi);
     });
-  }, [watchlist, watchlistFromApi]);
+  }, [watchlist]);
 
+  console.log(watchlistFromApi);
   //   const fetchMoviesFromWatchlist = useQueries({
   //     queries: watchlist.map((movie) => {
   //       return {
