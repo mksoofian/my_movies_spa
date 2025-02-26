@@ -40,14 +40,12 @@ function Watchlist() {
       const movieMatchFound = movieResult.results.find(
         (item) => item.id.toString() === movie.id
       );
-      console.log(movieResult, movieMatchFound);
+
       if (movieMatchFound) {
         tempWatchlist.push(movieMatchFound);
         // setWatchlistFromApi([...watchlistFromApi, movieMatchFound]);
-        console.log(watchlistFromApi);
+        setWatchlistFromApi(tempWatchlist);
       }
-      setWatchlistFromApi(tempWatchlist);
-      console.log(tempWatchlist, watchlistFromApi);
     });
   }, [watchlist]);
 
