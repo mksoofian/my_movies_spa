@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useWatchlistState } from "../providers/watchlistProvider";
 // import { useQueries, useQuery } from "@tanstack/react-query";
 import { Movie, MovieApiResponse } from "../types/movie_types";
-// import { dateFormatter } from "../utils/date-formatter";
-// import { Check, Plus } from "lucide-react";
+import { dateFormatter } from "../utils/date-formatter";
+import { Check, Plus } from "lucide-react";
 
 function Watchlist() {
-  const { watchlist } = useWatchlistState();
+  const { watchlist, setWatchlist } = useWatchlistState();
   const [watchlistFromApi, setWatchlistFromApi] = useState<Movie[] | []>([]);
+  const [isLoading, setIsLoading] = useState(true);
   //   const [pageNum, setPageNum] = useState(1);
 
   useEffect(() => {
@@ -36,20 +37,34 @@ function Watchlist() {
     const tempWatchlist: Movie[] = [];
     watchlist.forEach(async (movie) => {
       const movieResult = await fetchWatchlistAPI(movie.title);
-
       const movieMatchFound = movieResult.results.find(
         (item) => item.id.toString() === movie.id
       );
-
       if (movieMatchFound) {
         tempWatchlist.push(movieMatchFound);
         // setWatchlistFromApi([...watchlistFromApi, movieMatchFound]);
         setWatchlistFromApi(tempWatchlist);
       }
     });
+    setIsLoading(false);
   }, [watchlist]);
 
-  console.log(watchlistFromApi);
+  const watchlistChecker = (id: string) => {
+    return watchlist?.some((obj) => obj.id === id) ? true : false;
+  };
+
+  const handleAddRemoveWatchlist = (id: string, title: string) => {
+    // Make sure watchlist is not null and does not already include the movie.id
+    if (!watchlist) {
+      setWatchlist([{ id: id, title: title }]);
+    } else if (watchlist && !watchlistChecker(id)) {
+      setWatchlist([...watchlist, { id: id, title: title }]);
+    } else if (watchlist && watchlistChecker(id)) {
+      // If item exists, lets remove it from the watchlist
+      setWatchlist(watchlist.filter((item) => item.id !== id));
+    }
+  };
+
   //   const fetchMoviesFromWatchlist = useQueries({
   //     queries: watchlist.map((movie) => {
   //       return {
@@ -76,20 +91,22 @@ function Watchlist() {
   //     setWatchlist(watchlist.filter((item) => item.id !== id));
   //   }
   // };
+
+  console.log(watchlistFromApi);
+
+  if (!watchlist || isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <>
       <h1>My Watchlist</h1>
       <div className="grid">
-        {/* {topRatedMovies.results.map((movie) => {
-          function watchlistChecker(arg0: any) {
-            throw new Error("Function not implemented.");
-          }
-
+        {watchlistFromApi.map((movie) => {
           return (
             <div key={movie.id} className="grid-item">
               <div className="card-image">
                 <div className="image-wrapper">
-                 
                   <div className="voter-score">
                     <p> {Math.floor(movie.vote_average * 10)}</p> <span>%</span>
                   </div>
@@ -116,8 +133,6 @@ function Watchlist() {
                     className="poster"
                     src={`https://media.themoviedb.org/t/p/w440_and_h660_face/${movie.poster_path}`}
                   />
-
-             
                 </div>
               </div>
               <div className="card-content">
@@ -128,7 +143,7 @@ function Watchlist() {
               </div>
             </div>
           );
-        })} */}
+        })}
       </div>
     </>
   );
