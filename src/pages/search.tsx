@@ -1,41 +1,88 @@
-import { useForm } from "@tanstack/react-form";
+// import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import { MovieApiResponse } from "../types/movie_types";
+import MovieCard from "../components/movie-card";
 
 function Search() {
-  const form = useForm({
-    defaultValues: {
-      movieQuery: "",
-    },
-    onSubmit: async ({ value }) => {
-      // Do something with form data
-      console.log(value);
-    },
+  const [pageNum, setPageNum] = useState(1);
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 2000);
+    //cleanup
+    return () => clearTimeout(debounceTimer);
+  }, [query]);
+
+  const fetchMovieAPI = async () => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${
+          import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN
+        }`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${pageNum}`,
+      options
+    );
+    const data = await response.json();
+    return data;
+  };
+  const {
+    isPending,
+    error,
+    data: searchedMovies,
+  } = useQuery<MovieApiResponse>({
+    queryKey: ["fetchMovieAPI", debouncedQuery],
+    queryFn: fetchMovieAPI,
   });
 
+  const handleClickPrevPage = () => {
+    if (pageNum > 1) setPageNum(pageNum - 1);
+  };
+
+  const handleClickNextPage = () => {
+    if (searchedMovies && pageNum < searchedMovies?.total_pages) {
+      setPageNum(pageNum + 1);
+    }
+  };
+
+  if (isPending) return <p>Loading data...</p>;
+  if (error) {
+    return (
+      <>
+        <h1>Search for Movies by Title</h1>
+        <p>Error fetching movie data: {error.message}</p>
+      </>
+    );
+  }
+
   return (
-    <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          form.handleSubmit();
-        }}
-      >
-        <div>
-          <form.Field
-            name="movieQuery"
-            children={(field) => (
-              <input
-                name={field.name}
-                value={field.state.value}
-                onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
-              />
-            )}
-          />
+    <>
+      <section>
+        <h1>Search for Movies by Title</h1>
+        <input value={query} onChange={(e) => setQuery(e.target.value)} />
+      </section>
+      <section>
+        {searchedMovies.results.map((movie) => {
+          return <MovieCard key={movie.id} movie={movie} />;
+        })}
+      </section>
+      <section>
+        <div className="pagination">
+          <button onClick={handleClickPrevPage}>prev</button>
+          <p>Page: {searchedMovies.page}</p>
+          <button onClick={handleClickNextPage}>next</button>
         </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+      </section>
+    </>
   );
 }
+
 export default Search;
