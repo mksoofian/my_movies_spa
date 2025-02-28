@@ -1,10 +1,20 @@
 // import { useQuery } from "@tanstack/react-query";
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Search() {
   //   const [pageNum, setPageNum] = useState(1);
-  //   const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
 
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 2000);
+    //cleanup
+    return () => clearTimeout(debounceTimer);
+  }, [query]);
+
+  console.log(debouncedQuery);
   //   const fetchWatchlistAPI = async () => {
   //     const options = {
   //       method: "GET",
@@ -33,7 +43,7 @@ function Search() {
   return (
     <>
       <h1>Search for Movies by Title</h1>
-      <input />
+      <input value={query} onChange={(e) => setQuery(e.target.value)} />
     </>
   );
 }
