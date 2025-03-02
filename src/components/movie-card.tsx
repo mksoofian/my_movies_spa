@@ -4,11 +4,7 @@ import { useWatchlistState } from "../providers/watchlistProvider";
 import { Movie } from "../types/movie_types";
 
 export default function MovieCard({ movie }: { movie: Movie }) {
-  const { watchlist, setWatchlist } = useWatchlistState();
-
-  const watchlistChecker = (id: string) => {
-    return watchlist?.some((obj) => obj.id === id);
-  };
+  const { watchlist, setWatchlist, watchlistChecker } = useWatchlistState();
 
   const handleAddRemoveWatchlist = (id: string, title: string) => {
     // Make sure watchlist is not null and does not already include the movie.id
