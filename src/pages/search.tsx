@@ -70,9 +70,11 @@ function Search() {
         <input value={query} onChange={(e) => setQuery(e.target.value)} />
       </section>
       <section>
-        {searchedMovies.results.map((movie) => {
-          return <MovieCard key={movie.id} movie={movie} />;
-        })}
+        <div className="grid">
+          {searchedMovies.results.map((movie) => {
+            return <MovieCard key={movie.id} movie={movie} />;
+          })}
+        </div>
       </section>
       <section>
         <div className="pagination">
