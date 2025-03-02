@@ -49,10 +49,6 @@ function Watchlist() {
     setIsLoading(false);
   }, [watchlist]);
 
-  //   const watchlistChecker = (id: string) => {
-  //     return watchlist?.some((obj) => obj.id === id) ? true : false;
-  //   };
-
   const handleAddRemoveWatchlist = (id: string, title: string) => {
     // Make sure watchlist is not null and does not already include the movie.id
     if (!watchlist) {
