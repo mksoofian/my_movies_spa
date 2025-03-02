@@ -6,7 +6,7 @@ import { dateFormatter } from "../utils/date-formatter";
 import { Check, Plus } from "lucide-react";
 
 function Watchlist() {
-  const { watchlist, setWatchlist } = useWatchlistState();
+  const { watchlist, setWatchlist, watchlistChecker } = useWatchlistState();
   const [watchlistFromApi, setWatchlistFromApi] = useState<Movie[] | []>([]);
   const [isLoading, setIsLoading] = useState(true);
   //   const [pageNum, setPageNum] = useState(1);
@@ -49,9 +49,9 @@ function Watchlist() {
     setIsLoading(false);
   }, [watchlist]);
 
-  const watchlistChecker = (id: string) => {
-    return watchlist?.some((obj) => obj.id === id) ? true : false;
-  };
+  //   const watchlistChecker = (id: string) => {
+  //     return watchlist?.some((obj) => obj.id === id) ? true : false;
+  //   };
 
   const handleAddRemoveWatchlist = (id: string, title: string) => {
     // Make sure watchlist is not null and does not already include the movie.id

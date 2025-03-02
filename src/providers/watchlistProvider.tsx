@@ -4,13 +4,14 @@ import { WatchlistObj } from "../types/movie_types";
 export type WatchlistStateType = {
   watchlist: [] | WatchlistObj[];
   setWatchlist: (c: [] | WatchlistObj[]) => void;
-  watchlistChecker: (id: string) => void;
+  watchlistChecker: (id: string) => boolean;
 };
 
 const WatchlistStateContext = createContext<WatchlistStateType>({
   watchlist: [],
   setWatchlist: () => {},
-  watchlistChecker: () => {},
+  watchlistChecker: () => false,
+  //   watchlistChecker: () => {},
 });
 
 const useWatchlistState = () => {
