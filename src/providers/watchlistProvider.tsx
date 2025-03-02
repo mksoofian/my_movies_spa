@@ -11,7 +11,6 @@ const WatchlistStateContext = createContext<WatchlistStateType>({
   watchlist: [],
   setWatchlist: () => {},
   watchlistChecker: () => false,
-  //   watchlistChecker: () => {},
 });
 
 const useWatchlistState = () => {
