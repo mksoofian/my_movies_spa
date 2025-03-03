@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useWatchlistState } from "../providers/watchlistProvider";
 import { useQueries } from "@tanstack/react-query";
 import { Movie, MovieApiResponse } from "../types/movie_types";
 import MovieCard from "../components/movie-card";
+import { errorCard } from "../utils/movie-card-sample-data";
 
 function Watchlist() {
   const { watchlist } = useWatchlistState();
@@ -48,10 +49,7 @@ function Watchlist() {
   //     setIsLoading(false);
   //   }, [watchlist]);
 
-  const fetchWatchlistAPI = async (
-    title: string,
-    id: string
-  ): Promise<MovieApiResponse> => {
+  const fetchWatchlistAPI = async (title: string, id: string) => {
     const options = {
       method: "GET",
       headers: {
@@ -65,13 +63,19 @@ function Watchlist() {
       `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=${1}`,
       options
     );
+
     const data: MovieApiResponse = await response.json();
-    const matchingId = data.results.find((movie) => movie.id.toString() === id);
-    console.log(title, matchingId);
-    return data;
+
+    //Finds movie in results matching to the movie ID we provided from our watchlist
+    const movieMatchFound = data.results.find(
+      (movie) => movie.id.toString() === id
+    );
+    if (movieMatchFound) return movieMatchFound;
+    // If movieMatchFound was undefined, check the next page of results
+    /////// ADD RECURSION to cycle through pages or results to make sure no match exists...
   };
 
-  const results = useQueries({
+  const watchlistSearchResultsFromAPI = useQueries({
     queries: watchlist.map((movie) => ({
       queryKey: ["movieID", movie.id],
       queryFn: () => fetchWatchlistAPI(movie.title, movie.id),
@@ -79,14 +83,25 @@ function Watchlist() {
     })),
     combine: (results) => {
       return {
-        data: results.map((result) => result.data),
+        data: results.map((result) =>
+          result === undefined ? errorCard : result.data
+        ),
         pending: results.some((result) => result.isPending),
       };
     },
   });
-  console.log(results);
-  if (results.pending) return <p>Page is loading data...</p>;
+  console.log(watchlistSearchResultsFromAPI);
+  if (watchlistSearchResultsFromAPI.pending)
+    return <p>Page is loading data...</p>;
 
+  if (
+    !watchlistSearchResultsFromAPI.pending &&
+    watchlistSearchResultsFromAPI.data.length > 0 &&
+    !watchlistSearchResultsFromAPI.data.some((movie) => movie !== undefined)
+  ) {
+    console.log(watchlistSearchResultsFromAPI.data);
+    setWatchlistFromApi(watchlistSearchResultsFromAPI.data);
+  }
   // const handleAddRemoveWatchlist = (id: string, title: string) => {
   //   // Make sure watchlist is not null and does not already include the movie.id
   //   if (!watchlist) {
