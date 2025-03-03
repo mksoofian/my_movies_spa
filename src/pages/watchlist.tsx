@@ -1,67 +1,91 @@
 import { useEffect, useState } from "react";
 import { useWatchlistState } from "../providers/watchlistProvider";
-// import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 import { Movie, MovieApiResponse } from "../types/movie_types";
 import MovieCard from "../components/movie-card";
 
 function Watchlist() {
   const { watchlist } = useWatchlistState();
   const [watchlistFromApi, setWatchlistFromApi] = useState<Movie[] | []>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  //   const [isLoading, setIsLoading] = useState(true);
   //   const [pageNum, setPageNum] = useState(1);
 
-  useEffect(() => {
-    const fetchWatchlistAPI = async (
-      title: string
-    ): Promise<MovieApiResponse> => {
-      const options = {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-          Authorization: `Bearer ${
-            import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN
-          }`,
-        },
-      };
-      const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=${1}`,
-        options
-      );
-      const data = await response.json();
-      return data;
-    };
-
-    //For each id in watchlist, fetch movies with that id
-    //If the result has a corresponding ID, add it to the watchlistFromApi
-    const tempWatchlist: Movie[] = [];
-    watchlist.forEach(async (movie) => {
-      const movieResult = await fetchWatchlistAPI(movie.title);
-      const movieMatchFound = movieResult.results.find(
-        (item) => item.id.toString() === movie.id
-      );
-      if (movieMatchFound) {
-        tempWatchlist.push(movieMatchFound);
-        // setWatchlistFromApi([...watchlistFromApi, movieMatchFound]);
-        setWatchlistFromApi(tempWatchlist);
-      }
-    });
-    setIsLoading(false);
-  }, [watchlist]);
-
-  //   const fetchMoviesFromWatchlist = useQueries({
-  //     queries: watchlist.map((movie) => {
-  //       return {
-  //         queryKey: ["movieKey", movie],
-  //         queryFn: fetchWatchlistAPI(movie.title),
-  //         // enabled: !!watchlist,
+  //   useEffect(() => {
+  //     const fetchWatchlistAPI = async (
+  //       title: string
+  //     ): Promise<MovieApiResponse> => {
+  //       const options = {
+  //         method: "GET",
+  //         headers: {
+  //           accept: "application/json",
+  //           Authorization: `Bearer ${
+  //             import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN
+  //           }`,
+  //         },
   //       };
-  //     }),
-  // queryKey: ["fetchMyWatchlist", pageNum],
-  // queryFn: fetchWatchlistAPI,
-  //   });
+  //       const response = await fetch(
+  //         `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=${1}`,
+  //         options
+  //       );
+  //       const data = await response.json();
+  //       return data;
+  //     };
 
-  //   if (isPending) return <p>Page is loading data...</p>;
-  //   if (error) return <p>An error occured: {error.message}</p>;
+  //For each id in watchlist, fetch movies with that id
+  //If the result has a corresponding ID, add it to the watchlistFromApi
+  //     const tempWatchlist: Movie[] = [];
+  //     watchlist.forEach(async (movie) => {
+  //       const movieResult = await fetchWatchlistAPI(movie.title);
+  //       const movieMatchFound = movieResult.results.find(
+  //         (item) => item.id.toString() === movie.id
+  //       );
+  //       if (movieMatchFound) {
+  //         tempWatchlist.push(movieMatchFound);
+  //         // setWatchlistFromApi([...watchlistFromApi, movieMatchFound]);
+  //         setWatchlistFromApi(tempWatchlist);
+  //       }
+  //     });
+  //     setIsLoading(false);
+  //   }, [watchlist]);
+
+  const fetchWatchlistAPI = async (
+    title: string,
+    id: string
+  ): Promise<MovieApiResponse> => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${
+          import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN
+        }`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=${1}`,
+      options
+    );
+    const data: MovieApiResponse = await response.json();
+    const matchingId = data.results.find((movie) => movie.id.toString() === id);
+    console.log(title, matchingId);
+    return data;
+  };
+
+  const results = useQueries({
+    queries: watchlist.map((movie) => ({
+      queryKey: ["movieID", movie.id],
+      queryFn: () => fetchWatchlistAPI(movie.title, movie.id),
+      staleTime: Infinity,
+    })),
+    combine: (results) => {
+      return {
+        data: results.map((result) => result.data),
+        pending: results.some((result) => result.isPending),
+      };
+    },
+  });
+  console.log(results);
+  if (results.pending) return <p>Page is loading data...</p>;
 
   // const handleAddRemoveWatchlist = (id: string, title: string) => {
   //   // Make sure watchlist is not null and does not already include the movie.id
@@ -75,9 +99,7 @@ function Watchlist() {
   //   }
   // };
 
-  console.log(watchlistFromApi);
-
-  if (!watchlist || isLoading) {
+  if (!watchlist) {
     return <h1>Loading...</h1>;
   }
 
