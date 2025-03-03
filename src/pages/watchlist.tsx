@@ -1,13 +1,12 @@
-import { useState } from "react";
 import { useWatchlistState } from "../providers/watchlistProvider";
 import { useQueries } from "@tanstack/react-query";
-import { Movie, MovieApiResponse } from "../types/movie_types";
+import { MovieApiResponse } from "../types/movie_types";
 import MovieCard from "../components/movie-card";
 import { errorCard } from "../utils/movie-card-sample-data";
 
 function Watchlist() {
   const { watchlist } = useWatchlistState();
-  const [watchlistFromApi, setWatchlistFromApi] = useState<Movie[] | []>([]);
+  //   const [watchlistFromApi, setWatchlistFromApi] = useState<Movie[] | []>([]);
   //   const [isLoading, setIsLoading] = useState(true);
   //   const [pageNum, setPageNum] = useState(1);
 
@@ -94,14 +93,14 @@ function Watchlist() {
   if (watchlistSearchResultsFromAPI.pending)
     return <p>Page is loading data...</p>;
 
-  if (
-    !watchlistSearchResultsFromAPI.pending &&
-    watchlistSearchResultsFromAPI.data.length > 0 &&
-    !watchlistSearchResultsFromAPI.data.some((movie) => movie !== undefined)
-  ) {
-    console.log(watchlistSearchResultsFromAPI.data);
-    setWatchlistFromApi(watchlistSearchResultsFromAPI.data);
-  }
+  //   if (
+  //     !watchlistSearchResultsFromAPI.pending &&
+  //     watchlistSearchResultsFromAPI.data.length > 0 &&
+  //     !watchlistSearchResultsFromAPI.data.some((movie) => movie !== undefined)
+  //   ) {
+  //     console.log(watchlistSearchResultsFromAPI.data);
+  //   }
+
   // const handleAddRemoveWatchlist = (id: string, title: string) => {
   //   // Make sure watchlist is not null and does not already include the movie.id
   //   if (!watchlist) {
@@ -122,8 +121,13 @@ function Watchlist() {
     <>
       <h1>My Watchlist</h1>
       <div className="grid">
-        {watchlistFromApi.map((movie) => {
-          return <MovieCard key={movie.id} movie={movie} />;
+        {watchlistSearchResultsFromAPI?.data.map((movie) => {
+          return (
+            <MovieCard
+              key={movie?.id}
+              movie={movie === undefined ? errorCard : movie}
+            />
+          );
         })}
       </div>
     </>
