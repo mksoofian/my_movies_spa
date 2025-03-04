@@ -68,7 +68,12 @@ function Search() {
     <>
       <section>
         <h1>Search for Movies by Title</h1>
-        <input value={query} onChange={(e) => setQuery(e.target.value)} />
+
+        <input
+          value={query}
+          placeholder={"Search movie title here"}
+          onChange={(e) => setQuery(e.target.value)}
+        />
       </section>
       <section>
         <div className="grid">
