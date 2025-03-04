@@ -69,7 +69,6 @@ function Search() {
       <section>
         <h1>Search for Movies by Title</h1>
         <div>
-          {" "}
           <input
             value={query}
             placeholder={"Search movie title here"}
@@ -84,7 +83,7 @@ function Search() {
           })}
         </div>
       </section>
-      {searchedMovies ? (
+      {searchedMovies.results.length > 0 ? (
         <section>
           <div className="pagination">
             <button onClick={handleClickPrevPage}>prev</button>
