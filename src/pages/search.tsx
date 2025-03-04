@@ -36,6 +36,7 @@ function Search() {
   };
   const {
     isPending,
+    isError,
     error,
     data: searchedMovies,
   } = useQuery<MovieApiResponse>({
@@ -54,7 +55,7 @@ function Search() {
   };
 
   if (isPending) return <p>Loading data...</p>;
-  if (error) {
+  if (isError) {
     return (
       <>
         <h1>Search for Movies by Title</h1>
