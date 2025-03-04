@@ -12,7 +12,7 @@ function Search() {
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       setDebouncedQuery(query);
-    }, 2000);
+    }, 1000);
     //cleanup
     return () => clearTimeout(debounceTimer);
   }, [query]);
