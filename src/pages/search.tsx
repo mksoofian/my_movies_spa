@@ -68,12 +68,14 @@ function Search() {
     <>
       <section>
         <h1>Search for Movies by Title</h1>
-
-        <input
-          value={query}
-          placeholder={"Search movie title here"}
-          onChange={(e) => setQuery(e.target.value)}
-        />
+        <div>
+          {" "}
+          <input
+            value={query}
+            placeholder={"Search movie title here"}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
       </section>
       <section>
         <div className="grid">
@@ -82,13 +84,17 @@ function Search() {
           })}
         </div>
       </section>
-      <section>
-        <div className="pagination">
-          <button onClick={handleClickPrevPage}>prev</button>
-          <p>Page: {searchedMovies.page}</p>
-          <button onClick={handleClickNextPage}>next</button>
-        </div>
-      </section>
+      {searchedMovies ? (
+        <section>
+          <div className="pagination">
+            <button onClick={handleClickPrevPage}>prev</button>
+            <p>Page: {searchedMovies.page}</p>
+            <button onClick={handleClickNextPage}>next</button>
+          </div>
+        </section>
+      ) : (
+        ""
+      )}
     </>
   );
 }
