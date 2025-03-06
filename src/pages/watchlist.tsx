@@ -1,8 +1,8 @@
 import { useWatchlistState } from "../providers/watchlistProvider";
 import { useQueries } from "@tanstack/react-query";
 import { MovieApiResponse } from "../types/movie_types";
-import MovieCard from "../components/movie-card";
 import { errorCard } from "../utils/movie-card-sample-data";
+import MovieResultsGrid from "../components/movie-resuts-grid";
 
 function Watchlist() {
   const { watchlist } = useWatchlistState();
@@ -59,16 +59,7 @@ function Watchlist() {
   return (
     <>
       <h1>My Watchlist</h1>
-      <div className="grid">
-        {watchlistSearchResultsFromAPI?.data.map((movie) => {
-          return (
-            <MovieCard
-              key={movie?.id}
-              movie={movie === undefined ? errorCard : movie}
-            />
-          );
-        })}
-      </div>
+      <MovieResultsGrid results={watchlistSearchResultsFromAPI.data} />
     </>
   );
 }
