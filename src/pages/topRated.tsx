@@ -3,6 +3,7 @@ import "../App.css";
 import { useQuery } from "@tanstack/react-query";
 import { MovieApiResponse } from "../types/movie_types";
 import MovieCard from "../components/movie-card";
+import { errorCard } from "../utils/movie-card-sample-data";
 
 function TopRated() {
   const [pageNum, setPageNum] = useState(1);
@@ -59,7 +60,12 @@ function TopRated() {
         </div>
         <div className="grid">
           {topRatedMovies.results.map((movie) => {
-            return <MovieCard key={movie.id} movie={movie} />;
+            return (
+              <MovieCard
+                key={movie?.id}
+                movie={movie === undefined ? errorCard : movie}
+              />
+            );
           })}
         </div>
       </section>

@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { MovieApiResponse } from "../types/movie_types";
 import MovieCard from "../components/movie-card";
+import { errorCard } from "../utils/movie-card-sample-data";
 
 function Search() {
   const [pageNum, setPageNum] = useState(1);
@@ -79,7 +80,12 @@ function Search() {
       <section>
         <div className="grid">
           {searchedMovies.results.map((movie) => {
-            return <MovieCard key={movie.id} movie={movie} />;
+            return (
+              <MovieCard
+                key={movie?.id}
+                movie={movie === undefined ? errorCard : movie}
+              />
+            );
           })}
         </div>
       </section>
