@@ -48,7 +48,7 @@ function Watchlist() {
       };
     },
   });
-  console.log(watchlistSearchResultsFromAPI);
+
   if (watchlistSearchResultsFromAPI.pending)
     return <p>Page is loading data...</p>;
 
