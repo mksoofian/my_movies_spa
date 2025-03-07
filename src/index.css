@@ -25,7 +25,7 @@ a:hover {
 input {
   max-width: 1200px;
   margin: 1rem 0;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
   background-color: #f4f4f4;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid #e3e3e3;

@@ -168,4 +168,19 @@ main {
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.search-input-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  scale: 0.7;
 }
