@@ -1,12 +1,9 @@
-// import { useQuery } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { MovieApiResponse } from "../types/movie_types";
 import MovieResultsGrid from "../components/movie-resuts-grid";
 
 function SearchResults({ query }: { query: string }) {
-  //   { pageNum }: { pageNum: number },
-  //   { setPageNum }: { setPageNum: (number: number) => number }
   const [pageNum, setPageNum] = useState(1);
 
   const fetchMovieAPI = async () => {
