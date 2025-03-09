@@ -18,7 +18,7 @@ function Search() {
   console.log("page rendering");
 
   return (
-    <>
+    <main>
       <section>
         <h1>Search for Movies by Title</h1>
         <div className="search-input-container">
@@ -34,7 +34,7 @@ function Search() {
         </div>
       </section>
       <SearchResults query={debouncedQuery} />
-    </>
+    </main>
   );
 }
 
