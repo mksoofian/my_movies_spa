@@ -33,7 +33,7 @@ function SearchResults({ query }: { query: string }) {
     error,
     data: searchedMovies,
   } = useQuery<MovieApiResponse>({
-    queryKey: ["fetchMovieAPI", query],
+    queryKey: ["fetchMovieAPI", query, pageNum],
     queryFn: fetchMovieAPI,
   });
 
