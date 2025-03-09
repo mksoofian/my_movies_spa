@@ -1,8 +1,8 @@
 #root {
   max-width: 1440px;
-  margin: 0;
-  padding: 0;
-  /* text-align: center; */
+  width: 100%;
+  padding: 0rem;
+  margin: 0rem;
 }
 
 img,
@@ -48,7 +48,6 @@ nav > a {
 
 /* ----------- */
 main {
-  /* max-width: 1440px; */
   padding: 1rem;
 }
 
