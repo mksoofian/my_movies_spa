@@ -36,9 +36,12 @@ function Watchlist() {
       (movie) => movie.id.toString() === id
     );
     if (movieMatchFound) return movieMatchFound;
+
     // If movieMatchFound was undefined, check the next page of results
-    fetchWatchlistAPI(title, id, pageNum + 1);
     /////// ADD RECURSION to cycle through pages or results to make sure no match exists...
+    for (let i = 2; i < data.total_results; i++) {
+      fetchWatchlistAPI(title, id, i);
+    }
   };
 
   const watchlistSearchResultsFromAPI = useQueries({
