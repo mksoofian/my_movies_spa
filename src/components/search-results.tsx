@@ -23,7 +23,7 @@ function SearchResults({ query }: { query: string }) {
     );
 
     const data = await response.json();
-    console.log("api called");
+    console.log(data);
     return data;
   };
 
