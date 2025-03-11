@@ -3,9 +3,11 @@ import { useQueries } from "@tanstack/react-query";
 import { MovieApiResponse } from "../types/movie_types";
 import { errorCard } from "../utils/movie-card-sample-data";
 import MovieResultsGrid from "../components/movie-resuts-grid";
+import { useState } from "react";
 
 function Watchlist() {
   const { watchlist } = useWatchlistState();
+  const [pageNum, setPageNum] = useState(1);
 
   const fetchWatchlistAPI = async (title: string, id: string) => {
     const options = {
@@ -30,6 +32,7 @@ function Watchlist() {
     );
     if (movieMatchFound) return movieMatchFound;
     // If movieMatchFound was undefined, check the next page of results
+
     /////// ADD RECURSION to cycle through pages or results to make sure no match exists...
   };
 
