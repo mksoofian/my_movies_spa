@@ -3,13 +3,18 @@ import { useQueries } from "@tanstack/react-query";
 import { MovieApiResponse } from "../types/movie_types";
 import { errorCard } from "../utils/movie-card-sample-data";
 import MovieResultsGrid from "../components/movie-resuts-grid";
-import { useState } from "react";
+// import { useState } from "react";
 
 function Watchlist() {
   const { watchlist } = useWatchlistState();
-  const [pageNum, setPageNum] = useState(1);
+  //   const [pageNum, setPageNum] = useState(1);
+  const pageNum = 1;
 
-  const fetchWatchlistAPI = async (title: string, id: string) => {
+  const fetchWatchlistAPI = async (
+    title: string,
+    id: string,
+    pageNum: number
+  ) => {
     const options = {
       method: "GET",
       headers: {
@@ -20,7 +25,7 @@ function Watchlist() {
       },
     };
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=${1}`,
+      `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=${pageNum}`,
       options
     );
 
@@ -32,14 +37,14 @@ function Watchlist() {
     );
     if (movieMatchFound) return movieMatchFound;
     // If movieMatchFound was undefined, check the next page of results
-
+    fetchWatchlistAPI(title, id, pageNum + 1);
     /////// ADD RECURSION to cycle through pages or results to make sure no match exists...
   };
 
   const watchlistSearchResultsFromAPI = useQueries({
     queries: watchlist.map((movie) => ({
       queryKey: ["movieID", movie.id],
-      queryFn: () => fetchWatchlistAPI(movie.title, movie.id),
+      queryFn: () => fetchWatchlistAPI(movie.title, movie.id, pageNum),
       staleTime: Infinity,
     })),
     combine: (results) => {
