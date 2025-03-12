@@ -9,13 +9,10 @@ function Search() {
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       setDebouncedQuery(query);
-      console.log("debounced");
     }, 1500);
     //cleanup
     return () => clearTimeout(debounceTimer);
   }, [query]);
-
-  console.log("page rendering");
 
   return (
     <main>
