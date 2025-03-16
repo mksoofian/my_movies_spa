@@ -30,7 +30,7 @@ function Watchlist() {
     );
 
     const data: MovieApiResponse = await response.json();
-
+    console.log(data);
     //Finds movie in results matching to the movie ID we provided from our watchlist
     const movieMatchFound = data.results.find(
       (movie) => movie.id.toString() === id
