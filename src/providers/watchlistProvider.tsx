@@ -41,6 +41,8 @@ const WatchlistProvider = ({ children }: { children: React.ReactNode }) => {
     return watchlist?.some((obj) => obj.id === id);
   };
 
+  console.log(watchlist);
+
   return (
     <WatchlistStateContext.Provider
       value={{ watchlist, setWatchlist, watchlistChecker }}
