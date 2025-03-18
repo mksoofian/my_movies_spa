@@ -31,6 +31,7 @@ function Watchlist() {
 
     const data: MovieApiResponse = await response.json();
     console.log(data);
+
     //Finds movie in results matching to the movie ID we provided from our watchlist
     const movieMatchFound = data.results.find(
       (movie) => movie.id.toString() === id
@@ -39,9 +40,9 @@ function Watchlist() {
 
     // If movieMatchFound was undefined, check the next page of results
     /////// ADD RECURSION to cycle through pages or results to make sure no match exists...
-    for (let i = 2; i < data.total_results; i++) {
-      fetchWatchlistAPI(title, id, i);
-    }
+    // for (let i = 2; i < data.total_results; i++) {
+    //   fetchWatchlistAPI(title, id, i);
+    // }
   };
 
   const watchlistSearchResultsFromAPI = useQueries({
