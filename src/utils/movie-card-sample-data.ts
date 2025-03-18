@@ -16,6 +16,8 @@ export const errorCard: Movie = {
   vote_average: 0,
   vote_count: 0,
 };
+
+// Sample for MSW --- The Batman, ID: 414906
 export const noMatchingMovieIdPage1: MovieApiResponse = {
   page: 1,
   results: [
