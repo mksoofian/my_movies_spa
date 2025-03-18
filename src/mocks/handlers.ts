@@ -6,6 +6,8 @@ import {
 } from "./../utils/movie-card-sample-data";
 import { http, HttpResponse } from "msw";
 
+// Sample --- The Batman, ID: 414906
+
 export const handlers = [
   // An example handler
   http.get("https://api.themoviedb.org/3/search/*", ({ request }) => {
@@ -13,24 +15,24 @@ export const handlers = [
 
     // Identifies what page number is being requested
     const pageNum = url.searchParams.get("page");
-    console.log("hello from msw", `page: ${pageNum}`);
+    const query = url.searchParams.get("query");
+    console.log({ query: query, page: pageNum });
 
     // Switch to return the correct page
-    // switch (pageNum) {
-    //   case "1":
-    //     return HttpResponse.json(noMatchingMovieIdPage1);
-    //   case "2":
-    //     return HttpResponse.json(noMatchingMovieIdPage2);
-    //   case "3":
-    //     return HttpResponse.json(noMatchingMovieIdPage3);
-    //   case "4":
-    //     return HttpResponse.json(noMatchingMovieIdPage4);
-    //   default: {
-    //     return HttpResponse.json({ name: "No data matching your request" });
-    //   }
-    // }
-    if (pageNum === "1")
-      return HttpResponse.json({ response: "Page 1 was requested" });
-    return HttpResponse.json({ name: "John Maverick" });
+    switch (pageNum) {
+      case "1":
+        return HttpResponse.json(noMatchingMovieIdPage1);
+      case "2":
+        return HttpResponse.json(noMatchingMovieIdPage2);
+      case "3":
+        return HttpResponse.json(noMatchingMovieIdPage3);
+      case "4":
+        return HttpResponse.json(noMatchingMovieIdPage4);
+      default: {
+        return HttpResponse.json({ name: "No data matching your request" });
+      }
+    }
+    // if (pageNum === "1") return HttpResponse.json(noMatchingMovieIdPage1);
+    // return HttpResponse.json({ name: "John Maverick" });
   }),
 ];
