@@ -12,7 +12,7 @@ export default function MovieResultsGrid({
       {results.map((movie) => {
         return (
           <MovieCard
-            key={movie?.id}
+            key={movie?.id} // add an || random unique key
             movie={movie === undefined ? errorCard : movie}
           />
         );
