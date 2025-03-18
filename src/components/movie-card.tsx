@@ -25,24 +25,27 @@ export default function MovieCard({ movie }: { movie: Movie }) {
           <div className="voter-score">
             <p> {Math.floor(movie.vote_average * 10)}</p> <span>%</span>
           </div>
-
-          <button
-            className={
-              "favorite-button" +
-              (watchlistChecker(movie.id.toString())
-                ? " favorite-button-checked"
-                : " favorite-button-default")
-            }
-            onClick={() =>
-              handleAddRemoveWatchlist(movie.id.toString(), movie.title)
-            }
-          >
-            {watchlistChecker(movie.id.toString()) ? (
-              <Check size={15} />
-            ) : (
-              <Plus size={15} />
-            )}
-          </button>
+          {movie.title === "null" ? (
+            ""
+          ) : (
+            <button
+              className={
+                "favorite-button" +
+                (watchlistChecker(movie.id.toString())
+                  ? " favorite-button-checked"
+                  : " favorite-button-default")
+              }
+              onClick={() =>
+                handleAddRemoveWatchlist(movie.id.toString(), movie.title)
+              }
+            >
+              {watchlistChecker(movie.id.toString()) ? (
+                <Check size={15} />
+              ) : (
+                <Plus size={15} />
+              )}
+            </button>
+          )}
 
           <img
             className="poster"

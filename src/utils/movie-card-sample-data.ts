@@ -11,7 +11,7 @@ export const errorCard: Movie = {
   popularity: 0,
   poster_path: "/",
   release_date: "00-00-0000",
-  title: "Failed to Fetch Title",
+  title: "null",
   video: false,
   vote_average: 0,
   vote_count: 0,
