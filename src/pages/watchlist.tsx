@@ -39,12 +39,16 @@ function Watchlist() {
     console.log(movieMatchFound, movieMatchFound ? true : false);
 
     if (movieMatchFound) {
-      console.log("match found in MSW!!!");
+      console.log(
+        `match found for ${movieMatchFound.title} in MSW!!!`,
+        movieMatchFound
+      );
       return movieMatchFound;
     } else if (!movieMatchFound && data.page < data.total_pages) {
       pageNum++;
       console.log(
-        `no result found for ${title}, id:${id}, current page is ${pageNum}`
+        `no result found for ${title}, id:${id}, current page is ${pageNum}`,
+        data
       );
       fetchWatchlistAPI(title, id, pageNum);
     }
