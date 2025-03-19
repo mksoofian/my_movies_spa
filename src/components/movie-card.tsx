@@ -54,7 +54,7 @@ export default function MovieCard({ movie }: { movie: Movie }) {
         </div>
       </div>
       <div className="card-content">
-        <h4 className="movie-title">{movie.original_title}</h4>
+        <h4 className="movie-title">{movie.title}</h4>
         <p className="movie-release-date">
           {dateFormatter(movie.release_date)}
         </p>
