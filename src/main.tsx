@@ -37,6 +37,12 @@ const router = createBrowserRouter([
 ]);
 
 async function enableMocking() {
+  // set enableMock to true if you want to mock
+  const enableMock = false;
+  if (!enableMock) {
+    return;
+  }
+
   if (process.env.NODE_ENV !== "development") {
     return;
   }
