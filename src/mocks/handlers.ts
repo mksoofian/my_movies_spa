@@ -32,7 +32,5 @@ export const handlers = [
         return HttpResponse.json({ name: "No data matching your request" });
       }
     }
-    // if (pageNum === "1") return HttpResponse.json(noMatchingMovieIdPage1);
-    // return HttpResponse.json({ name: "John Maverick" });
   }),
 ];
