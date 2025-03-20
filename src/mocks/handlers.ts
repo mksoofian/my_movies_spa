@@ -15,8 +15,8 @@ export const handlers = [
 
     // Identifies what page number is being requested
     const pageNum = url.searchParams.get("page");
-    const query = url.searchParams.get("query");
-    console.log({ query: query, page: pageNum });
+    // const query = url.searchParams.get("query");
+    // console.log({ query: query, page: pageNum });
 
     // Switch to return the correct page
     switch (pageNum) {
