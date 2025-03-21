@@ -6,6 +6,7 @@ import { Movie } from "../types/movie_types";
 export default function MovieCard({ movie }: { movie: Movie }) {
   const { watchlist, setWatchlist, watchlistChecker } = useWatchlistState();
 
+  const movieExists = watchlistChecker(movie.id.toString());
   const handleAddRemoveWatchlist = (id: string, title: string) => {
     // Make sure watchlist is not null and does not already include the movie.id
     if (!watchlist) {
@@ -31,7 +32,7 @@ export default function MovieCard({ movie }: { movie: Movie }) {
             <button
               className={
                 "favorite-button" +
-                (watchlistChecker(movie.id.toString())
+                (movieExists
                   ? " favorite-button-checked"
                   : " favorite-button-default")
               }
@@ -39,11 +40,7 @@ export default function MovieCard({ movie }: { movie: Movie }) {
                 handleAddRemoveWatchlist(movie.id.toString(), movie.title)
               }
             >
-              {watchlistChecker(movie.id.toString()) ? (
-                <Check size={15} />
-              ) : (
-                <Plus size={15} />
-              )}
+              {movieExists ? <Check size={15} /> : <Plus size={15} />}
             </button>
           )}
 
