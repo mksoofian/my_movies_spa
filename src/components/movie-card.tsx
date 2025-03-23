@@ -1,24 +1,16 @@
 import { Check, Plus } from "lucide-react";
 import { dateFormatter } from "../utils/date-formatter";
-import { useWatchlistState } from "../providers/watchlistProvider";
 import { Movie } from "../types/movie_types";
 
-export default function MovieCard({ movie }: { movie: Movie }) {
-  const { watchlist, setWatchlist, watchlistChecker } = useWatchlistState();
-
-  const movieExists = watchlistChecker(movie.id.toString());
-  const handleAddRemoveWatchlist = (id: string, title: string) => {
-    // Make sure watchlist is not null and does not already include the movie.id
-    if (!watchlist) {
-      setWatchlist([{ id: id, title: title }]);
-    } else if (watchlist && !watchlistChecker(id)) {
-      setWatchlist([...watchlist, { id: id, title: title }]);
-    } else if (watchlist && watchlistChecker(id)) {
-      // If item exists, lets remove it from the watchlist
-      setWatchlist(watchlist.filter((item) => item.id !== id));
-    }
-  };
-
+export default function MovieCard({
+  movie,
+  handleToggleSave,
+  movieExists,
+}: {
+  movie: Movie;
+  handleToggleSave: (id: string, title: string, movieExists: boolean) => void;
+  movieExists: boolean;
+}) {
   return (
     <div key={movie.id} className="grid-item">
       <div className="card-image">
@@ -37,7 +29,7 @@ export default function MovieCard({ movie }: { movie: Movie }) {
                   : " favorite-button-default")
               }
               onClick={() =>
-                handleAddRemoveWatchlist(movie.id.toString(), movie.title)
+                handleToggleSave(movie.id.toString(), movie.title, movieExists)
               }
             >
               {movieExists ? <Check size={15} /> : <Plus size={15} />}
