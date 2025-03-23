@@ -34,11 +34,7 @@ export default function MovieResultsGrid({
             <MovieCard
               key={movie?.id} // add an || random unique key
               movie={movie === undefined ? errorCard : movie}
-              handleToggleSave={handleToggleSave(
-                movie?.id.toString(),
-                movie?.title,
-                movieExists
-              )}
+              handleToggleSave={handleToggleSave}
               movieExists={movieExists}
             />
           );
