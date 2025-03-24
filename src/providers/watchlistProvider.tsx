@@ -4,13 +4,13 @@ import { WatchlistObj } from "../types/movie_types";
 export type WatchlistStateType = {
   watchlist: [] | WatchlistObj[];
   setWatchlist: (c: [] | WatchlistObj[]) => void;
-  watchlistChecker: (id: string) => boolean;
+  existsInWatchlist: (id: string) => boolean;
 };
 
 const WatchlistStateContext = createContext<WatchlistStateType>({
   watchlist: [],
   setWatchlist: () => {},
-  watchlistChecker: () => false,
+  existsInWatchlist: () => false,
 });
 
 const useWatchlistState = () => {
@@ -37,13 +37,13 @@ const WatchlistProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [watchlist]);
 
-  const watchlistChecker = (id: string) => {
+  const existsInWatchlist = (id: string) => {
     return watchlist?.some((obj) => obj.id === id);
   };
 
   return (
     <WatchlistStateContext.Provider
-      value={{ watchlist, setWatchlist, watchlistChecker }}
+      value={{ watchlist, setWatchlist, existsInWatchlist }}
     >
       {children}
     </WatchlistStateContext.Provider>

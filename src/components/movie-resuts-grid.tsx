@@ -8,7 +8,7 @@ export default function MovieResultsGrid({
 }: {
   results: (Movie | undefined)[];
 }) {
-  const { watchlist, setWatchlist, watchlistChecker } = useWatchlistState();
+  const { watchlist, setWatchlist, existsInWatchlist } = useWatchlistState();
 
   const handleToggleSave = (
     id: string,
@@ -29,7 +29,7 @@ export default function MovieResultsGrid({
     <div className="grid">
       {results.map((movie) => {
         if (movie) {
-          const movieExists = watchlistChecker(movie.id.toString());
+          const movieExists = existsInWatchlist(movie.id.toString());
           return (
             <MovieCard
               key={movie?.id} // add an || random unique key
