@@ -20,11 +20,17 @@ export default function MovieResultsGrid({
       setWatchlist([{ id: id, title: title }]);
     } else if (watchlist && !movieExists) {
       setWatchlist([...watchlist, { id: id, title: title }]);
+    } else if (watchlist.length === 1 && movieExists) {
+      // If ONLY ONE item exists, lets remove the watchlist from the watchlist
+      console.log("only one item in watchlist");
+      setWatchlist([]);
     } else if (watchlist && movieExists) {
       // If item exists, lets remove it from the watchlist
       setWatchlist(watchlist.filter((item) => item.id !== id));
+      console.log(watchlist.length);
     }
   };
+
   return (
     <div className="grid">
       {results.map((movie) => {
