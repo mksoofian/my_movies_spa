@@ -34,7 +34,7 @@ const WatchlistProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (watchlist.length > 0) {
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
-    }
+    } else localStorage.removeItem("watchlist");
   }, [watchlist]);
 
   const existsInWatchlist = (id: string) => {
