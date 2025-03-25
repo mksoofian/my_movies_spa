@@ -31,19 +31,23 @@ export default function MovieResultsGrid({
 
   return (
     <div className="grid">
-      {results.map((movie) => {
-        if (movie) {
-          const movieExists = existsInWatchlist(movie.id.toString());
-          return (
-            <MovieCard
-              key={movie?.id} // add an || random unique key
-              movie={movie === undefined ? errorCard : movie}
-              handleToggleSave={handleToggleSave}
-              movieExists={movieExists}
-            />
-          );
-        }
-      })}
+      {results.length > 0 ? (
+        results.map((movie) => {
+          if (movie) {
+            const movieExists = existsInWatchlist(movie.id.toString());
+            return (
+              <MovieCard
+                key={movie?.id} // add an || random unique key
+                movie={movie === undefined ? errorCard : movie}
+                handleToggleSave={handleToggleSave}
+                movieExists={movieExists}
+              />
+            );
+          }
+        })
+      ) : (
+        <p>Your watchlist is currently empty</p>
+      )}
     </div>
   );
 }
