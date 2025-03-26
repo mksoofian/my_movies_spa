@@ -37,7 +37,7 @@ export default function MovieResultsGrid({
             const movieExists = existsInWatchlist(movie.id.toString());
             return (
               <MovieCard
-                key={movie?.id} // add an || random unique key
+                key={movie?.id} // add an || random unique key for case when error cards are being passed and no id
                 movie={movie === undefined ? errorCard : movie}
                 handleToggleSave={handleToggleSave}
                 movieExists={movieExists}
