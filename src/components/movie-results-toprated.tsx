@@ -3,33 +3,34 @@ import { MovieApiResponse } from "../types/movie_types";
 import { useState } from "react";
 import MovieResultsGrid from "./movie-resuts-grid";
 
+const fetchTopRatedMovies = async (pageNumber: number) => {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${
+        import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN
+      }`,
+    },
+  };
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageNumber}&region=US`,
+    options
+  );
+  const data = await response.json();
+  return data;
+};
+
 export default function TopRatedMovieResults() {
   const [pageNum, setPageNum] = useState(1);
 
-  const fetchTopRatedMovies = async () => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${
-          import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN
-        }`,
-      },
-    };
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageNum}&region=US`,
-      options
-    );
-    const data = await response.json();
-    return data;
-  };
   const {
     isPending,
     error,
     data: topRatedMovies,
   } = useQuery<MovieApiResponse>({
     queryKey: ["fetchTopRated", pageNum],
-    queryFn: fetchTopRatedMovies,
+    queryFn: fetchTopRatedMovies(pageNum),
   });
 
   const handleClickPrevPage = () => {
