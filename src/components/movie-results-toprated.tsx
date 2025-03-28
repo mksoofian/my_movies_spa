@@ -17,7 +17,7 @@ const fetchTopRatedMovies = async (pageNumber: number) => {
     `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageNumber}&region=US`,
     options
   );
-  const data = await response.json();
+  const data: MovieApiResponse = await response.json();
   return data;
 };
 
@@ -30,7 +30,7 @@ export default function TopRatedMovieResults() {
     data: topRatedMovies,
   } = useQuery<MovieApiResponse>({
     queryKey: ["fetchTopRated", pageNum],
-    queryFn: fetchTopRatedMovies(pageNum),
+    queryFn: () => fetchTopRatedMovies(pageNum),
   });
 
   const handleClickPrevPage = () => {
